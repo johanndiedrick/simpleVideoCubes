@@ -7,10 +7,12 @@
 //
 
 #include "videoCubes.h"
+#include "testApp.h"
+
 
 videoCube::videoCube(){
     
-    videoNumber = ofRandom(3);
+    videoNumber = ofRandom(NUM_OF_VIDEOS - 1);
     
     //    // Set the initial color
     //    color.set( ofRandom(255), ofRandom(255), ofRandom(255));

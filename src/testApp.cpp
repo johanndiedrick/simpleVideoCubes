@@ -20,16 +20,21 @@ void testApp::setup(){
     
     string youtube_dl = ofToDataPath("youtube-dl", true);
     
+    //create our youtube search string
+    youtube_search_string = createYoutubeSearchString(SEARCH_QUERY);
     
     // Open a Youtube video feed
     // http://code.google.com/apis/youtube/2.0/developers_guide_protocol_video_feeds.html
     // http://gdata.youtube.com/feeds/api/standardfeeds/most_popular?v=2&alt=json
     // http://gdata.youtube.com/feeds/api/videos?q=skateboarding+dog&alt=json
     ofxJSONElement youtube;
-    youtube.open("http://gdata.youtube.com/feeds/api/videos?q=slow+loris&alt=json");
+    youtube.open(youtube_search_string);
+    
+    //you can also just open a playlist
+    //youtube.open("https://gdata.youtube.com/feeds/api/playlists/8BCDD04DE8F771B2?v=2");
     
     // Loop through all of the feed->entry items in the feed
-    int numVideos = min(4, (int)youtube["feed"]["entry"].size());
+    int numVideos = min(NUM_OF_VIDEOS, (int)youtube["feed"]["entry"].size());
     for(int i=0; i<numVideos; i++)
     {
         // use ofToDataPath to get the complete path to the youtube-dl program
@@ -51,6 +56,7 @@ void testApp::setup(){
         // Load the video (from a url!) and start playing it
         vids[i].loadMovie(vid_url);
         vids[i].play();
+        vids[i].setVolume(0.0); //mute all the videos if you like, otherwise its hella annoying
     }
 
     
@@ -67,7 +73,7 @@ void testApp::setup(){
 //--------------------------------------------------------------
 void testApp::update(){
     
-    for(int i=0; i<4; i++)
+    for(int i=0; i<NUM_OF_VIDEOS; i++)
     {
         vids[i].update();
     }
@@ -91,13 +97,12 @@ void testApp::draw(){
 	
 	float movementSpeed = .1;
 	float cloudSize = ofGetWidth() / 2;
-	float maxBoxSize = 100;
+	float maxBoxSize = NUM_OF_BOXES;
 	float spacing = 1;
-	//int boxCount = 4;
 	
 	cam.begin();
 	
-	for(int i = 0; i < 100; i++) {
+	for(int i = 0; i < NUM_OF_BOXES; i++) {
         
         int number = vidCubes[i].videoNumber;
         //grab a random number
@@ -134,9 +139,19 @@ void testApp::draw(){
 		
 		ofPopMatrix();
 	}
-	
 	cam.end();
+}
 
+//--------------------------------------------------------------
+string testApp::createYoutubeSearchString(string ytsearchstr){
     
+    string yt_search_str;
+    
+    //construct our string for our youtube query
+    yt_search_str = "http://gdata.youtube.com/feeds/api/videos?q=";
+    yt_search_str += ytsearchstr;
+    yt_search_str += "&alt=json";
+    
+    return yt_search_str;
     
 }
