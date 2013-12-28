@@ -12,7 +12,7 @@
 
 videoCube::videoCube(){
     
-    videoNumber = ofRandom(NUM_OF_VIDEOS - 1);
+    videoNumber = ofRandom(NUM_OF_VIDEOS);
     
     //    // Set the initial color
     //    color.set( ofRandom(255), ofRandom(255), ofRandom(255));

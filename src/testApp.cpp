@@ -31,7 +31,7 @@ void testApp::setup(){
     youtube.open(youtube_search_string);
     
     //you can also just open a playlist
-    //youtube.open("https://gdata.youtube.com/feeds/api/playlists/8BCDD04DE8F771B2?v=2");
+    youtube.open("http://gdata.youtube.com/feeds/api/playlists/PL3ngyh53O02CnHBb69HMZNwdvWo8w3MKW?&alt=json");
     
     // Loop through all of the feed->entry items in the feed
     int numVideos = min(NUM_OF_VIDEOS, (int)youtube["feed"]["entry"].size());
@@ -51,7 +51,7 @@ void testApp::setup(){
         
         // Get the full (nasty) URL of the raw video
         string vid_url = ofSystemCall(command);
-        //cout << vid_url << endl;
+        cout << vid_url << endl;
         
         // Load the video (from a url!) and start playing it
         vids[i].loadMovie(vid_url);
