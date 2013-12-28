@@ -31,6 +31,7 @@ class testApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+        void drawIntoFBO();
         string createYoutubeSearchString(string ytsearchstr);
 		
     ofVideoPlayer vids[NUM_OF_VIDEOS];
@@ -45,5 +46,12 @@ class testApp : public ofBaseApp{
     
     string youtube_search_string;
     
+    ofFbo rgbaFbo; // with alpha
+    ofFbo rgbaFboFloat; // with alpha
+    
+    int fadeAmnt;
+    
+    ofShader bloomShader;
+
     
 };

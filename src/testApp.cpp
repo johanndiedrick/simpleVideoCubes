@@ -17,16 +17,15 @@ string ofSystemCall(string command)
 
 //--------------------------------------------------------------
 void testApp::setup(){
-    
+
+    ofBackground(0,0,0);
+	ofSetFrameRate(60);
+
     string youtube_dl = ofToDataPath("youtube-dl", true);
     
     //create our youtube search string
     youtube_search_string = createYoutubeSearchString(SEARCH_QUERY);
     
-    // Open a Youtube video feed
-    // http://code.google.com/apis/youtube/2.0/developers_guide_protocol_video_feeds.html
-    // http://gdata.youtube.com/feeds/api/standardfeeds/most_popular?v=2&alt=json
-    // http://gdata.youtube.com/feeds/api/videos?q=skateboarding+dog&alt=json
     ofxJSONElement youtube;
     youtube.open(youtube_search_string);
     
@@ -42,7 +41,7 @@ void testApp::setup(){
         // In each one, there will be a "link" item that contains multiple "href" strings
         // We want the first href string inside the link item
         string youtube_url = youtube["feed"]["entry"][i]["link"][UInt(0)]["href"].asString();
-        cout << youtube_url << endl;
+        //cout << youtube_url << endl;
         
         // Assemble a command just like the one you would use on the command line
         // Format 18 = H264  (see http://en.wikipedia.org/wiki/YouTube#Quality_and_codecs)
@@ -58,56 +57,101 @@ void testApp::setup(){
         vids[i].play();
         vids[i].setVolume(0.0); //mute all the videos if you like, otherwise its hella annoying
     }
-
+    
     
     //gl setup for our boxes
     ofSetVerticalSync(true);
-	ofEnableDepthTest();
-    ofEnableNormalizedTexCoords();
-    //randomBox = 0;
+	//ofEnableDepthTest();
+    //ofEnableNormalizedTexCoords();
 
-    
+    rgbaFboFloat.allocate(ofGetWindowWidth(), ofGetWindowHeight(), GL_RGBA32F_ARB);
+	rgbaFboFloat.begin();
+	ofClear(255,255,255, 0);
+    rgbaFboFloat.end();
+
+    bloomShader.load("shaders/bloom.vert", "shaders/bloom.frag");
+
 
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     
+    ofEnableAlphaBlending();
+    
     for(int i=0; i<NUM_OF_VIDEOS; i++)
     {
         vids[i].update();
     }
 
+    rgbaFboFloat.begin();
+    drawIntoFBO();
+	rgbaFboFloat.end();
+    rgbaFboFloat.getTextureReference(0);
+
+
+    
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    bloomShader.begin();
+    bloomShader.setUniformTexture("texture", rgbaFboFloat.getTextureReference(), 1);
+    rgbaFboFloat.draw(0,0);
+    bloomShader.end();
 
-    /*
-     We're not gonna draw all of the videos, but we could if we wanted to...
-     
-    vids[0].draw(0, 0, 320, 240);
-    vids[1].draw(320, 0, 320, 240);
-    vids[2].draw(0, 240, 320, 240);
-    vids[3].draw(320, 240, 320, 240);
-    
-    */
-    
-    ofBackground(0, 0, 0);
+}
+
+
+//--------------------------------------------------------------
+void testApp::drawIntoFBO(){
+    //we clear the fbo if c is pressed.
+	//this completely clears the buffer so you won't see any trails
+	if( ofGetKeyPressed('c') ){
+		ofClear(255,255,255, 0);
+	}
 	
-	float movementSpeed = .1;
+	//some different alpha values for fading the fbo
+	//the lower the number, the longer the trails will take to fade away.
+	fadeAmnt = 50;
+	if(ofGetKeyPressed('1')){
+		fadeAmnt = 1;
+	}else if(ofGetKeyPressed('2')){
+		fadeAmnt = 5;
+	}else if(ofGetKeyPressed('3')){
+		fadeAmnt = 15;
+	}
+    
+    //for now, we'll clear the fbo because ofGetDepthTest doesn't seem to work with the boxes..looking into it
+    ofClear(255,255,255, 0);
+
+	//1 - Fade Fbo
+	
+	//this is where we fade the fbo
+	//by drawing a rectangle the size of the fbo with a small alpha value, we can slowly fade the current contents of the fbo.
+    /*
+    ofPushStyle();
+	ofFill();
+	ofSetColor(0,0,0, fadeAmnt);
+	ofRect(0,0,ofGetWindowWidth(),ofGetWindowHeight());
+    ofPopStyle();
+     */
+    
+	//2 - Draw graphics
+	
+	//ofNoFill();
+	//ofSetColor(255,255,255);
+	
+    float movementSpeed = .1;
 	float cloudSize = ofGetWidth() / 2;
 	float maxBoxSize = NUM_OF_BOXES;
 	float spacing = 1;
 	
-	cam.begin();
+    	cam.begin();
 	
 	for(int i = 0; i < NUM_OF_BOXES; i++) {
         
         int number = vidCubes[i].videoNumber;
-        //grab a random number
-        
-        //randomBox = ofRandom(3);
         
 		ofPushMatrix();
 		
@@ -124,22 +168,28 @@ void testApp::draw(){
 		//ofRotateX(pos.x);
 		//ofRotateY(pos.y);
 		//ofRotateZ(pos.z);
-		
-		//ofLogo.bind();
+		//ofEnableDepthTest();
+        ofEnableNormalizedTexCoords();
+
         vids[number].getTextureReference().bind();
 		ofFill();
-		//ofSetColor(255);
+        //ofPushMatrix();
+        ofEnableDepthTest();
 		ofDrawBox(boxSize);
-        //		ofLogo.unbind();
-         vids[number].getTextureReference().unbind();
+        ofDisableDepthTest();
+        //ofPopStyle();
+        vids[number].getTextureReference().unbind();
+        
+        ofDisableNormalizedTexCoords();
 		
-		ofNoFill();
+		//ofNoFill();
 		//ofSetColor(ofColor::fromHsb(sinf(t) * 128 + 128, 255, 255));
 		//ofDrawBox(boxSize);
 		
 		ofPopMatrix();
-	}
-	cam.end();
+    }
+    cam.end();
+    
 }
 
 //--------------------------------------------------------------

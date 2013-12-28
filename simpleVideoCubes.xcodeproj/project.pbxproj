@@ -21,6 +21,8 @@
 		7CED9FCC5BF62C4915C8D09F /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554E82F6BF0F134EC9BF40AA /* json_reader.cpp */; };
 		879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9BFFBBF4CC43DEE890B3C3E /* OscTypes.cpp */; };
 		8E7229C1186D4EB50032F5E2 /* videoCubes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E7229BF186D4EB50032F5E2 /* videoCubes.cpp */; };
+		8EF53C51186E71D800FE7921 /* bloom.frag in Sources */ = {isa = PBXBuildFile; fileRef = 8EF53C4F186E71D800FE7921 /* bloom.frag */; };
+		8EF53C52186E71D800FE7921 /* bloom.vert in Sources */ = {isa = PBXBuildFile; fileRef = 8EF53C50186E71D800FE7921 /* bloom.vert */; };
 		8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81967292BFC87A0144BD32C6 /* ofxOscSender.cpp */; };
 		933A2227713C720CEFF80FD9 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B40EDA85BEB63E46785BC29 /* tinyxml.cpp */; };
 		9B06C5CAE570B630A97E51C3 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58F8CBF3C566F6908846E5FB /* json_writer.cpp */; };
@@ -144,6 +146,8 @@
 		8C75AFC8774A62495DD53464 /* ofxOscReceiver.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscReceiver.h; path = ../../../addons/ofxOsc/src/ofxOscReceiver.h; sourceTree = SOURCE_ROOT; };
 		8E7229BF186D4EB50032F5E2 /* videoCubes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = videoCubes.cpp; sourceTree = "<group>"; };
 		8E7229C0186D4EB50032F5E2 /* videoCubes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videoCubes.h; sourceTree = "<group>"; };
+		8EF53C4F186E71D800FE7921 /* bloom.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = bloom.frag; path = bin/data/shaders/bloom.frag; sourceTree = "<group>"; };
+		8EF53C50186E71D800FE7921 /* bloom.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = bloom.vert; path = bin/data/shaders/bloom.vert; sourceTree = "<group>"; };
 		961DE8B564EF22E65C9480AE /* ofxUI2DPad.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUI2DPad.h; path = ../../../addons/ofxUI/src/ofxUI2DPad.h; sourceTree = SOURCE_ROOT; };
 		98169AEC4E990DBDF3275463 /* config.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = config.h; path = ../../../addons/ofxJSON/libs/jsoncpp/include/json/config.h; sourceTree = SOURCE_ROOT; };
 		9BF3AA0D4FAA89D0F8A0E545 /* OscReceivedElements.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = OscReceivedElements.cpp; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscReceivedElements.cpp; sourceTree = SOURCE_ROOT; };
@@ -347,6 +351,15 @@
 			name = oscpack;
 			sourceTree = "<group>";
 		};
+		8EF53C4E186E713800FE7921 /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				8EF53C4F186E71D800FE7921 /* bloom.frag */,
+				8EF53C50186E71D800FE7921 /* bloom.vert */,
+			);
+			name = shaders;
+			sourceTree = "<group>";
+		};
 		977A836DD2C489CCC5E330FF /* jsoncpp */ = {
 			isa = PBXGroup;
 			children = (
@@ -536,6 +549,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				8EF53C4E186E713800FE7921 /* shaders */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -692,6 +706,7 @@
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
+				8EF53C52186E71D800FE7921 /* bloom.vert in Sources */,
 				8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */,
 				ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */,
 				67FE4C7B15C2F0478C8126C2 /* NetworkingUtils.cpp in Sources */,
@@ -709,6 +724,7 @@
 				BEDFEE7400C58EA4E412B757 /* ofxJSONElement.cpp in Sources */,
 				7CED9FCC5BF62C4915C8D09F /* json_reader.cpp in Sources */,
 				AE32F1807796B1050E082651 /* json_value.cpp in Sources */,
+				8EF53C51186E71D800FE7921 /* bloom.frag in Sources */,
 				9B06C5CAE570B630A97E51C3 /* json_writer.cpp in Sources */,
 				8E7229C1186D4EB50032F5E2 /* videoCubes.cpp in Sources */,
 			);

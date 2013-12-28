@@ -33,6 +33,12 @@ Clean up code with comments for going back and forth between playlists or search
 
 Look at Yin's code from Patrick's class and think about how the cubes can be generated and move
 
+Make ifdef for searching versus playlist
+
+Make command line interface!
+
+Create createPlaylistSearchString function
+
 Make boxes to be able to "disassemble" into smaller boxes, with video texture on them as well (the ultimate goal!)
 
 Using:
