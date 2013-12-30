@@ -20,6 +20,7 @@ void testApp::setup(){
 
     ofBackground(0,0,0);
 	ofSetFrameRate(60);
+    ofSetVerticalSync(true);
 
     string youtube_dl = ofToDataPath("youtube-dl", true);
     
@@ -50,19 +51,13 @@ void testApp::setup(){
         
         // Get the full (nasty) URL of the raw video
         string vid_url = ofSystemCall(command);
-        cout << vid_url << endl;
+        //cout << vid_url << endl;
         
         // Load the video (from a url!) and start playing it
         vids[i].loadMovie(vid_url);
         vids[i].play();
         vids[i].setVolume(0.0); //mute all the videos if you like, otherwise its hella annoying
     }
-    
-    
-    //gl setup for our boxes
-    ofSetVerticalSync(true);
-	//ofEnableDepthTest();
-    //ofEnableNormalizedTexCoords();
 
     rgbaFboFloat.allocate(ofGetWindowWidth(), ofGetWindowHeight(), GL_RGBA32F_ARB);
 	rgbaFboFloat.begin();

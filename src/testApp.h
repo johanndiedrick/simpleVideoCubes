@@ -46,7 +46,6 @@ class testApp : public ofBaseApp{
     
     string youtube_search_string;
     
-    ofFbo rgbaFbo; // with alpha
     ofFbo rgbaFboFloat; // with alpha
     
     int fadeAmnt;
