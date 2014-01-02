@@ -1,8 +1,8 @@
 #pragma once
 
 #include "ofMain.h"
-//#include "videoCube.h"
 #include "videoCubeController.h"
+#include "videoPlayerController.h"
 #include "ofxJSONElement.h"
 
 /*
@@ -19,27 +19,21 @@ class testApp : public ofBaseApp{
 		void draw();
         void drawIntoFBO();
         string createYoutubeSearchString(string ytsearchstr);
-
-    //videocubes controller setup
-    //ofVideoPlayer vids[NUM_OF_VIDEOS];
-    //videoCube vidCubes[NUM_OF_BOXES];
-    //int numberOfCubes;
     
-    videoCubeController mVideoCubeController;
+        videoCubeController mVideoCubeController;
+        videoPlayerController mVideoPlayerController;
     
-    //cam and light setup
-    ofLight light; // creates a light and enables lighting
-    ofEasyCam cam; // add mouse controls for camera movement
+        //cam and light setup
+        ofLight light; // creates a light and enables lighting
+        ofEasyCam cam; // add mouse controls for camera movement
     
-    ofFbo rgbaFboFloat; // with alpha
+        ofFbo rgbaFboFloat; // with alpha
     
-    int fadeAmnt;
+        int fadeAmnt;
     
-    ofShader bloomShader;
+        ofShader bloomShader;
     
-    //youtube scraping
-    string youtube_search_string;
-
-
+        //youtube scraping
+        string youtube_search_string;
     
 };

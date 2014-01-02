@@ -33,11 +33,12 @@ void testApp::setup(){
     //you can also just open a playlist
     youtube.open("http://gdata.youtube.com/feeds/api/playlists/PL3ngyh53O02CnHBb69HMZNwdvWo8w3MKW?&alt=json");
     
-    //setup our video cubes controller
+    //setup our video player and video cube controllers
     mVideoCubeController.setup();
+    mVideoPlayerController.setup();
     
     // Loop through all of the feed->entry items in the feed
-    int numVideos = min(mVideoCubeController.getNumberOfVideos(), (int)youtube["feed"]["entry"].size());
+    int numVideos = min(mVideoPlayerController.getNumberOfVideos(), (int)youtube["feed"]["entry"].size());
     for(int i=0; i<numVideos; i++)
     {
         // use ofToDataPath to get the complete path to the youtube-dl program
@@ -45,26 +46,26 @@ void testApp::setup(){
         // In each one, there will be a "link" item that contains multiple "href" strings
         // We want the first href string inside the link item
         string youtube_url = youtube["feed"]["entry"][i]["link"][UInt(0)]["href"].asString();
-        //cout << youtube_url << endl;
+        cout << youtube_url << endl;
         
         // Assemble a command just like the one you would use on the command line
         // Format 18 = H264  (see http://en.wikipedia.org/wiki/YouTube#Quality_and_codecs)
         string command = youtube_dl+" --get-url --format 18 "+youtube_url;
-        cout << command << endl;
+        ///cout << command << endl;
         
         // Get the full (nasty) URL of the raw video
         string vid_url = ofSystemCall(command);
         //cout << vid_url << endl;
         
         //create a new video player and add it to our video player vector
-        mVideoCubeController.addVideoPlayer();
-        //set video urls into video cube controller video urls array
-        mVideoCubeController.mVideoURLs[i] = vid_url;
+        mVideoPlayerController.addVideoPlayer();
+        mVideoPlayerController.addVideoURL(vid_url);
     }
-    mVideoCubeController.setVideoURLs();
-    mVideoCubeController.playVideos();
-    mVideoCubeController.muteVideos();
-
+    
+    mVideoPlayerController.loadVideos();
+    mVideoPlayerController.playVideos();
+    mVideoPlayerController.muteVideos();
+    
 
     rgbaFboFloat.allocate(ofGetWindowWidth(), ofGetWindowHeight(), GL_RGBA32F_ARB);
 	rgbaFboFloat.begin();
@@ -79,32 +80,24 @@ void testApp::setup(){
 //--------------------------------------------------------------
 void testApp::update(){
     
-    ofEnableAlphaBlending();
+    //update our videos
+    mVideoPlayerController.update();
     
+    //update our video cubes
+    mVideoCubeController.update();
+    
+    //gl stuff
+    ofEnableAlphaBlending();
     rgbaFboFloat.begin();
     drawIntoFBO();
 	rgbaFboFloat.end();
     rgbaFboFloat.getTextureReference(0);
-
-
-    mVideoCubeController.update();
-    
-    for(vector<ofVideoPlayer>::iterator vp = mVideoCubeController.mVideoPlayers.begin(); vp != mVideoCubeController.mVideoPlayers.end(); ++vp){
-        vp->update();
-
-    }
-    
-    /*
-    for (int i = 0; i<NUM_OF_VIDEOS; i++){
-        mVideoCubeController.mVideoPlayers[i].update();
-    }
-    */
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
     
-    
+    //draw our fbo with some cute shaders on top xoxo
     bloomShader.begin();
     bloomShader.setUniformTexture("texture", rgbaFboFloat.getTextureReference(), 1);
     rgbaFboFloat.draw(0,0);
@@ -115,6 +108,7 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::drawIntoFBO(){
+    
     //we clear the fbo if c is pressed.
 	//this completely clears the buffer so you won't see any trails
 	if( ofGetKeyPressed('c') ){
@@ -147,62 +141,9 @@ void testApp::drawIntoFBO(){
     ofPopStyle();
      */
     
-	//2 - Draw graphics
-	
-	//ofNoFill();
-	//ofSetColor(255,255,255);
-	
-    float movementSpeed = .1;
-	float cloudSize = ofGetWidth() / 2;
-//	float maxBoxSize = NUM_OF_BOXES;
-	float spacing = 1;
-	
-    	cam.begin();
 
-    mVideoCubeController.draw();
-
-/*
-	for(int i = 0; i < NUM_OF_BOXES; i++) {
-        
-        int number = vidCubes[i].videoNumber;
-        
-		ofPushMatrix();
-		
-		float t = (ofGetElapsedTimef() + i * spacing) * movementSpeed;
-		ofVec3f pos(
-                    ofSignedNoise(t, 0, 0),
-                    ofSignedNoise(0, t, 0),
-                    ofSignedNoise(0, 0, t));
-		
-		float boxSize = maxBoxSize * ofNoise(pos.x, pos.y, pos.z);
-		
-		pos *= cloudSize;
-		ofTranslate(pos);
-		//ofRotateX(pos.x);
-		//ofRotateY(pos.y);
-		//ofRotateZ(pos.z);
-		//ofEnableDepthTest();
-        ofEnableNormalizedTexCoords();
-
-        vids[number].getTextureReference().bind();
-		ofFill();
-        //ofPushMatrix();
-        ofEnableDepthTest();
-		ofDrawBox(boxSize);
-        ofDisableDepthTest();
-        //ofPopStyle();
-        vids[number].getTextureReference().unbind();
-        
-        ofDisableNormalizedTexCoords();
-		
-		//ofNoFill();
-		//ofSetColor(ofColor::fromHsb(sinf(t) * 128 + 128, 255, 255));
-		//ofDrawBox(boxSize);
-		
-		ofPopMatrix();
-    }
- */
-    
+    cam.begin();
+    mVideoCubeController.draw(mVideoPlayerController);
     cam.end();
     
 }

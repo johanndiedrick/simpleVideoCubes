@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "ofMain.h"
+#include "videoPlayerController.h"
 
 class videoCube {
     
@@ -18,25 +19,16 @@ public:
     videoCube();
     void setup();
     void update();
-    void draw();
+    void draw(videoPlayerController _vpc);
     
     int boxNumber;
     
     int videoNumber;
-    string videoURL;
-    //should a video cube also have a cube? might want to flesh this out on a lower level...
-    //void playVideo();
-    //void muteVideo();
-    
+
     ofVec3f mLoc;
     ofVec3f mDir;
     float mVel;
     float mSize;
-    
-    vector<ofVideoPlayer>* mVideoPlayers;
-    
-    
-    
     
 };
 

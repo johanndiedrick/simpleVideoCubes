@@ -170,6 +170,7 @@ dependencies: \
   ../../../libs/openFrameworks/video/ofQTKitPlayer.h \
   ../../../libs/openFrameworks/3d/ofCamera.h \
   ../../../libs/openFrameworks/3d/ofEasyCam.h \
+  /Users/johanndiedrick/Documents/OpenFrameworks/of_v0.8.0_osx_release/apps/myApps/simpleVideoCubes/src/videoPlayerController.h \
   /Users/johanndiedrick/Documents/OpenFrameworks/of_v0.8.0_osx_release/apps/myApps/simpleVideoCubes/src/testApp.h \
   /Users/johanndiedrick/Documents/OpenFrameworks/of_v0.8.0_osx_release/apps/myApps/simpleVideoCubes/src/videoCubeController.h \
   /Users/johanndiedrick/Documents/OpenFrameworks/of_v0.8.0_osx_release/addons/ofxJSON/src/ofxJSONElement.h \

@@ -17,7 +17,7 @@ videoCube::videoCube(){
     mVel = 0.1;
     
     
-    mLoc.set(ofRandom(50), ofRandom(50), ofRandom(10));
+    mLoc.set(ofRandom(50), ofRandom(50), ofRandom(50));
     //    // Set the initial color
     //    color.set( ofRandom(255), ofRandom(255), ofRandom(255));
     //
@@ -34,40 +34,42 @@ void videoCube::setup(){
 }
 
 void videoCube::update(){
-    //
+    mLoc = mLoc+mVel;
+    
+    //float t = (ofGetElapsedTimef() + boxNumber * spacing) * mVel;
+    //		//ofVec3f pos(
+    //                    ofSignedNoise(t, 0, 0),
+    //                    ofSignedNoise(0, t, 0),
+    //                    ofSignedNoise(0, 0, t));
+    
+    //float boxSize = NUM_OF_VIDEOCUBES * ofNoise(pos.x, pos.y, pos.z);
+    
+    //pos *= cloudSize;
+	//	ofTranslate(pos);
+    //ofRotateX(pos.x);
+    //ofRotateY(pos.y);
+    //ofRotateZ(pos.z);
+    //ofEnableDepthTest();
+    
+    
 }
 
-void videoCube::draw(){
+void videoCube::draw(videoPlayerController _vpc){
     
-        float cloudSize = ofGetWidth() / 2;
-        float spacing = 1;
+  
     
 		ofPushMatrix();
-		
-		//float t = (ofGetElapsedTimef() + boxNumber * spacing) * mVel;
-//		//ofVec3f pos(
-//                    ofSignedNoise(t, 0, 0),
-//                    ofSignedNoise(0, t, 0),
-//                    ofSignedNoise(0, 0, t));
-		
-		//float boxSize = NUM_OF_VIDEOCUBES * ofNoise(pos.x, pos.y, pos.z);
-		
-		//pos *= cloudSize;
-	//	ofTranslate(pos);
-		//ofRotateX(pos.x);
-		//ofRotateY(pos.y);
-		//ofRotateZ(pos.z);
 		//ofEnableDepthTest();
         ofEnableNormalizedTexCoords();
         
-        //vids[number].getTextureReference().bind();
+        _vpc.mVideoPlayers[videoNumber].getTextureReference().bind();
 		ofFill();
         //ofPushMatrix();
         ofEnableDepthTest();
         ofDrawBox(mLoc.x, mLoc.y, mLoc.z, 10);
         ofDisableDepthTest();
         //ofPopStyle();
-       // vids[number].getTextureReference().unbind();
+        _vpc.mVideoPlayers[videoNumber].getTextureReference().unbind();
         
         ofDisableNormalizedTexCoords();
 		
