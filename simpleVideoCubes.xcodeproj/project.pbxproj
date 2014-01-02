@@ -20,7 +20,8 @@
 		72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65EEFA3DA3526E9CDD9C21F9 /* ofxOscBundle.cpp */; };
 		7CED9FCC5BF62C4915C8D09F /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554E82F6BF0F134EC9BF40AA /* json_reader.cpp */; };
 		879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9BFFBBF4CC43DEE890B3C3E /* OscTypes.cpp */; };
-		8E7229C1186D4EB50032F5E2 /* videoCubes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E7229BF186D4EB50032F5E2 /* videoCubes.cpp */; };
+		8E7229C1186D4EB50032F5E2 /* videoCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E7229BF186D4EB50032F5E2 /* videoCube.cpp */; };
+		8EA2E55F18751568001C5655 /* videoCubeController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EA2E55D18751568001C5655 /* videoCubeController.cpp */; };
 		8EF53C51186E71D800FE7921 /* bloom.frag in Sources */ = {isa = PBXBuildFile; fileRef = 8EF53C4F186E71D800FE7921 /* bloom.frag */; };
 		8EF53C52186E71D800FE7921 /* bloom.vert in Sources */ = {isa = PBXBuildFile; fileRef = 8EF53C50186E71D800FE7921 /* bloom.vert */; };
 		8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81967292BFC87A0144BD32C6 /* ofxOscSender.cpp */; };
@@ -144,8 +145,10 @@
 		885850B62FAD08EB1D2F0BF4 /* ofxUIRotarySlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIRotarySlider.h; path = ../../../addons/ofxUI/src/ofxUIRotarySlider.h; sourceTree = SOURCE_ROOT; };
 		8B30E93FD3D3475EED522A0E /* ofxOscBundle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscBundle.h; path = ../../../addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SOURCE_ROOT; };
 		8C75AFC8774A62495DD53464 /* ofxOscReceiver.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscReceiver.h; path = ../../../addons/ofxOsc/src/ofxOscReceiver.h; sourceTree = SOURCE_ROOT; };
-		8E7229BF186D4EB50032F5E2 /* videoCubes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = videoCubes.cpp; sourceTree = "<group>"; };
-		8E7229C0186D4EB50032F5E2 /* videoCubes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videoCubes.h; sourceTree = "<group>"; };
+		8E7229BF186D4EB50032F5E2 /* videoCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = videoCube.cpp; sourceTree = "<group>"; };
+		8E7229C0186D4EB50032F5E2 /* videoCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videoCube.h; sourceTree = "<group>"; };
+		8EA2E55D18751568001C5655 /* videoCubeController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = videoCubeController.cpp; sourceTree = "<group>"; };
+		8EA2E55E18751568001C5655 /* videoCubeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videoCubeController.h; sourceTree = "<group>"; };
 		8EF53C4F186E71D800FE7921 /* bloom.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = bloom.frag; path = bin/data/shaders/bloom.frag; sourceTree = "<group>"; };
 		8EF53C50186E71D800FE7921 /* bloom.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = bloom.vert; path = bin/data/shaders/bloom.vert; sourceTree = "<group>"; };
 		961DE8B564EF22E65C9480AE /* ofxUI2DPad.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUI2DPad.h; path = ../../../addons/ofxUI/src/ofxUI2DPad.h; sourceTree = SOURCE_ROOT; };
@@ -566,8 +569,10 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
-				8E7229C0186D4EB50032F5E2 /* videoCubes.h */,
-				8E7229BF186D4EB50032F5E2 /* videoCubes.cpp */,
+				8E7229C0186D4EB50032F5E2 /* videoCube.h */,
+				8E7229BF186D4EB50032F5E2 /* videoCube.cpp */,
+				8EA2E55E18751568001C5655 /* videoCubeController.h */,
+				8EA2E55D18751568001C5655 /* videoCubeController.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -726,7 +731,8 @@
 				AE32F1807796B1050E082651 /* json_value.cpp in Sources */,
 				8EF53C51186E71D800FE7921 /* bloom.frag in Sources */,
 				9B06C5CAE570B630A97E51C3 /* json_writer.cpp in Sources */,
-				8E7229C1186D4EB50032F5E2 /* videoCubes.cpp in Sources */,
+				8EA2E55F18751568001C5655 /* videoCubeController.cpp in Sources */,
+				8E7229C1186D4EB50032F5E2 /* videoCube.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

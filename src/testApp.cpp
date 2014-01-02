@@ -25,16 +25,19 @@ void testApp::setup(){
     string youtube_dl = ofToDataPath("youtube-dl", true);
     
     //create our youtube search string
-    youtube_search_string = createYoutubeSearchString(SEARCH_QUERY);
+    //youtube_search_string = createYoutubeSearchString(SEARCH_QUERY);
     
     ofxJSONElement youtube;
-    youtube.open(youtube_search_string);
+    //youtube.open(youtube_search_string);
     
     //you can also just open a playlist
     youtube.open("http://gdata.youtube.com/feeds/api/playlists/PL3ngyh53O02CnHBb69HMZNwdvWo8w3MKW?&alt=json");
     
+    //setup our video cubes controller
+    mVideoCubeController.setup();
+    
     // Loop through all of the feed->entry items in the feed
-    int numVideos = min(NUM_OF_VIDEOS, (int)youtube["feed"]["entry"].size());
+    int numVideos = min(mVideoCubeController.getNumberOfVideos(), (int)youtube["feed"]["entry"].size());
     for(int i=0; i<numVideos; i++)
     {
         // use ofToDataPath to get the complete path to the youtube-dl program
@@ -47,17 +50,21 @@ void testApp::setup(){
         // Assemble a command just like the one you would use on the command line
         // Format 18 = H264  (see http://en.wikipedia.org/wiki/YouTube#Quality_and_codecs)
         string command = youtube_dl+" --get-url --format 18 "+youtube_url;
-        //cout << command << endl;
+        cout << command << endl;
         
         // Get the full (nasty) URL of the raw video
         string vid_url = ofSystemCall(command);
         //cout << vid_url << endl;
         
-        // Load the video (from a url!) and start playing it
-        vids[i].loadMovie(vid_url);
-        vids[i].play();
-        vids[i].setVolume(0.0); //mute all the videos if you like, otherwise its hella annoying
+        //create a new video player and add it to our video player vector
+        mVideoCubeController.addVideoPlayer();
+        //set video urls into video cube controller video urls array
+        mVideoCubeController.mVideoURLs[i] = vid_url;
     }
+    mVideoCubeController.setVideoURLs();
+    mVideoCubeController.playVideos();
+    mVideoCubeController.muteVideos();
+
 
     rgbaFboFloat.allocate(ofGetWindowWidth(), ofGetWindowHeight(), GL_RGBA32F_ARB);
 	rgbaFboFloat.begin();
@@ -74,22 +81,30 @@ void testApp::update(){
     
     ofEnableAlphaBlending();
     
-    for(int i=0; i<NUM_OF_VIDEOS; i++)
-    {
-        vids[i].update();
-    }
-
     rgbaFboFloat.begin();
     drawIntoFBO();
 	rgbaFboFloat.end();
     rgbaFboFloat.getTextureReference(0);
 
 
+    mVideoCubeController.update();
     
+    for(vector<ofVideoPlayer>::iterator vp = mVideoCubeController.mVideoPlayers.begin(); vp != mVideoCubeController.mVideoPlayers.end(); ++vp){
+        vp->update();
+
+    }
+    
+    /*
+    for (int i = 0; i<NUM_OF_VIDEOS; i++){
+        mVideoCubeController.mVideoPlayers[i].update();
+    }
+    */
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    
+    
     bloomShader.begin();
     bloomShader.setUniformTexture("texture", rgbaFboFloat.getTextureReference(), 1);
     rgbaFboFloat.draw(0,0);
@@ -139,11 +154,14 @@ void testApp::drawIntoFBO(){
 	
     float movementSpeed = .1;
 	float cloudSize = ofGetWidth() / 2;
-	float maxBoxSize = NUM_OF_BOXES;
+//	float maxBoxSize = NUM_OF_BOXES;
 	float spacing = 1;
 	
     	cam.begin();
-	
+
+    mVideoCubeController.draw();
+
+/*
 	for(int i = 0; i < NUM_OF_BOXES; i++) {
         
         int number = vidCubes[i].videoNumber;
@@ -183,6 +201,8 @@ void testApp::drawIntoFBO(){
 		
 		ofPopMatrix();
     }
+ */
+    
     cam.end();
     
 }
