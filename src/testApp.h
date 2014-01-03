@@ -18,6 +18,9 @@ class testApp : public ofBaseApp{
 		void update();
 		void draw();
         void drawIntoFBO();
+        void mousePressed(int x, int y, int button);
+        void mouseReleased(int x, int y, int button);
+    
         string createYoutubeSearchString(string ytsearchstr);
     
         videoCubeController mVideoCubeController;

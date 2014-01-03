@@ -572,12 +572,12 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
-				8EA2E562187557AD001C5655 /* videoPlayerController.cpp */,
-				8EA2E563187557AD001C5655 /* videoPlayerController.h */,
-				8E7229C0186D4EB50032F5E2 /* videoCube.h */,
-				8E7229BF186D4EB50032F5E2 /* videoCube.cpp */,
 				8EA2E55E18751568001C5655 /* videoCubeController.h */,
 				8EA2E55D18751568001C5655 /* videoCubeController.cpp */,
+				8E7229C0186D4EB50032F5E2 /* videoCube.h */,
+				8E7229BF186D4EB50032F5E2 /* videoCube.cpp */,
+				8EA2E562187557AD001C5655 /* videoPlayerController.cpp */,
+				8EA2E563187557AD001C5655 /* videoPlayerController.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;

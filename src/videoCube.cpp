@@ -10,23 +10,28 @@
 #include "testApp.h"
 
 
+
 videoCube::videoCube(){
     
     videoNumber = ofRandom(NUM_OF_VIDEOS);
     
     mVel = 0.1;
     
+    //mLoc.set(ofRandom(50), ofRandom(50), ofRandom(50));
+
     
-    mLoc.set(ofRandom(50), ofRandom(50), ofRandom(50));
-    //    // Set the initial color
-    //    color.set( ofRandom(255), ofRandom(255), ofRandom(255));
-    //
-    //    // Initial x position of the ball
-    //    x = ofRandom( ofGetWindowWidth() );
-    //
-    //    // Initial y position of the ball
-    //    y = ofRandom( ofGetWindowHeight() );
+}
+
+videoCube::videoCube( ofVec3f loc ){
     
+    videoNumber = ofRandom(NUM_OF_VIDEOS);
+    
+    mVel = 0.1;
+    
+    //mLoc.set(ofRandom(50), ofRandom(50), ofRandom(50));
+    
+    mLoc.set(loc);
+
 }
 
 void videoCube::setup(){
@@ -34,7 +39,7 @@ void videoCube::setup(){
 }
 
 void videoCube::update(){
-    mLoc = mLoc+mVel;
+    //mLoc = mLoc+mVel;
     
     //float t = (ofGetElapsedTimef() + boxNumber * spacing) * mVel;
     //		//ofVec3f pos(

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>505198A5-C7B2-45CC-9D81-72DD9EAC452C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>simpleVideoCubes</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>02D47231-A867-4B3B-8D4A-5B9CDD22E2C5</key>
+		<string>https://github.com/jdiedrick/simpleVideoCubes.git</string>
+		<key>7B1DF270-E732-43B3-8E8C-DBCA07C2DB69</key>
+		<string>https://github.com/jefftimesten/ofxJSON</string>
+		<key>E119A7BE-F484-49D1-913C-A7B0BBDE322E</key>
+		<string>https://github.com/rezaali/ofxUI</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>simpleVideoCubes.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>02D47231-A867-4B3B-8D4A-5B9CDD22E2C5</key>
+		<string>../..</string>
+		<key>7B1DF270-E732-43B3-8E8C-DBCA07C2DB69</key>
+		<string>../../../../../addons/ofxJSON</string>
+		<key>E119A7BE-F484-49D1-913C-A7B0BBDE322E</key>
+		<string>../../../../../addons/ofxUI</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/jdiedrick/simpleVideoCubes.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>02D47231-A867-4B3B-8D4A-5B9CDD22E2C5</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7B1DF270-E732-43B3-8E8C-DBCA07C2DB69</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxJSON</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E119A7BE-F484-49D1-913C-A7B0BBDE322E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxUI</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>02D47231-A867-4B3B-8D4A-5B9CDD22E2C5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>simpleVideoCubes</string>
+		</dict>
+	</array>
+</dict>
+</plist>

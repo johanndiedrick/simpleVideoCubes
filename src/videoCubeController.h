@@ -19,6 +19,7 @@ this is where we define the number of video cubes.
 */
 
 #define NUM_OF_VIDEOCUBES 100
+#define VIDEOCUBE_SPACING 20.0;
 
 #endif /* defined(__simpleVideoCubes__videoCubeController__) */
 class videoCubeController {
@@ -26,8 +27,13 @@ class videoCubeController {
 public:
     videoCubeController();
     void setup();
+    void setupWithGrid();
     void update();
     void draw(videoPlayerController _vpc);
+    
+    void addVideoCube(int _x, int _y, int _z);
+    void addVideoCubes(int amount, int _x, int _y, int _z);
+    void removeVideoCubes(int amount);
 
     std::list<videoCube> mVideoCubes;
     

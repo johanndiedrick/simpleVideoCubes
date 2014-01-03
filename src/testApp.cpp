@@ -21,6 +21,8 @@ void testApp::setup(){
     ofBackground(0,0,0);
 	ofSetFrameRate(60);
     ofSetVerticalSync(true);
+    
+    cam.s
 
     string youtube_dl = ofToDataPath("youtube-dl", true);
     
@@ -161,3 +163,13 @@ string testApp::createYoutubeSearchString(string ytsearchstr){
     return yt_search_str;
     
 }
+
+#pragma mark Mosuse Interactions
+
+void testApp::mousePressed(int x, int y, int button){
+   // mVideoCubeController.addVideoCube( x, y ,0 );
+}
+void testApp::mouseReleased(int x, int y, int button){
+    //
+}
+

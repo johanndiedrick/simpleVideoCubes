@@ -17,6 +17,7 @@ class videoCube {
     
 public:
     videoCube();
+    videoCube( ofVec3f loc );
     void setup();
     void update();
     void draw(videoPlayerController _vpc);

@@ -13,7 +13,7 @@ videoPlayerController::videoPlayerController(){
 }
 
 void videoPlayerController::setup(){
-//
+    cout << "nothing here yet" << endl;
 }
 
 void videoPlayerController::update(){
