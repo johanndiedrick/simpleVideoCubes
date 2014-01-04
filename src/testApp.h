@@ -23,14 +23,15 @@ class testApp : public ofBaseApp{
 		void draw();
         void mousePressed(int x, int y, int button);
         void mouseReleased(int x, int y, int button);
+        void keyPressed(int key);
     
         //controllers
         videoCubeController mVideoCubeController;
         videoPlayerController mVideoPlayerController;
     
         //cam and light setup
-        ofLight light; // creates a light and enables lighting
-        ofxGameCamera cam; // add mouse controls for camera movement
+        ofLight light;
+        ofxGameCamera cam;
         ofVec3f mCenter;
     
         //fbo
@@ -45,10 +46,19 @@ class testApp : public ofBaseApp{
         string youtube_search_string;
         string createYoutubeSearchString(string ytsearchstr);
     
+        float mZoneRadius;
+        float mLowThresh, mHighThresh;
+        float mAttractStrength, mRepelStrength, mOrientStrength;
+        bool mFlatten;
+    
         //gui
         ofxUICanvas *gui;
         void setupUI();
         void exit();
         void guiEvent(ofxUIEventArgs &e);
+        bool drawUI;
+    
+        //booleans
+    
     
 };

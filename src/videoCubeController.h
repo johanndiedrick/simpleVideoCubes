@@ -18,7 +18,7 @@
 this is where we define the number of video cubes.
 */
 
-#define NUM_OF_VIDEOCUBES 100
+#define NUM_OF_VIDEOCUBES 500
 #define VIDEOCUBE_SPACING 20.0;
 
 #endif /* defined(__simpleVideoCubes__videoCubeController__) */
@@ -29,9 +29,11 @@ public:
     void setup();
     void setupWithGrid();
     void update();
+    void update( bool _flatten );
     void draw(videoPlayerController _vpc);
     
     void addVideoCube(int _x, int _y, int _z);
+    void addVideoCubes(int amount);
     void addVideoCubes(int amount, int _x, int _y, int _z);
     void removeVideoCubes(int amount);
 
@@ -42,5 +44,12 @@ public:
     //particle system
     void repulseVideoCubes();
     void pullToCenter( ofVec3f _center );
+    void applyForce( float _zoneRadiusSqrd, float _mHighThresh);
+    void applyForce( float _zoneRadiusSqrd, float _lowThresh, float _highThresh, float _attractStrength, float _repelStrength, float _orientStrength);
+    float mNumParticles;
+    ofVec3f mParticleCentroid;
+    
+    //special maths stolen from cinder :)
+    ofVec3f randVec3f();
 
 };

@@ -22,7 +22,17 @@ void testApp::setup(){
 	ofSetFrameRate(60);
     ofSetVerticalSync(true);
     
+    //set up some params for our particle system, this should all be in the ui
+    mZoneRadius = 65.0f;
+    mLowThresh = 0.4f;
+    mHighThresh = 0.75f;
+    mAttractStrength = 0.005f;
+    mRepelStrength = 0.01f;
+    mOrientStrength = 0.01f;
+    mFlatten = false;
+
     //setup ui
+    drawUI = false;
     setupUI();
     
     //setup camera
@@ -88,18 +98,20 @@ void testApp::setup(){
 //--------------------------------------------------------------
 void testApp::update(){
     
+    if (mLowThresh > mHighThresh) mLowThresh = mHighThresh;
     //update our videos
     mVideoPlayerController.update();
     
     //repulse our video cubes
-    mVideoCubeController.repulseVideoCubes();
+    //mVideoCubeController.repulseVideoCubes();
     
+    //apply our forces to our video cubes
+    mVideoCubeController.applyForce( mZoneRadius * mZoneRadius, mLowThresh, mHighThresh, mAttractStrength, mRepelStrength, mOrientStrength );
     //pull our video cube to the center
     mVideoCubeController.pullToCenter( mCenter );
     
-    
     //update our video cubes
-    mVideoCubeController.update();
+    mVideoCubeController.update( mFlatten );
     
     //gl stuff
     ofEnableAlphaBlending();
@@ -111,7 +123,7 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    
+
     //draw our fbo with some cute shaders on top xoxo
     bloomShader.begin();
     bloomShader.setUniformTexture("texture", rgbaFboFloat.getTextureReference(), 1);
@@ -190,12 +202,23 @@ void testApp::mouseReleased(int x, int y, int button){
 
 void testApp::setupUI(){
     
-    gui = new ofxUICanvas(0, 0, 320, 320);
+    gui = new ofxUICanvas(0, 0, 320, 400);
     
     //add our widgets
     gui->addWidgetDown(new ofxUILabel("Video Cubes", OFX_UI_FONT_LARGE));
     gui->addWidgetDown(new ofxUISlider(304,16,0.0,255.0,100.0,"BACKGROUND VALUE"));
     gui->addWidgetDown(new ofxUIToggle(32, 32, false, "FULLSCREEN"));
+    gui->addWidgetDown(new ofxUIToggle(32, 32, false, "TOGGLE PLAYBACK"));
+    gui->addWidgetDown(new ofxUIToggle(32, 32, false, "TOGGLE FLATTEN"));
+    gui->addWidgetDown(new ofxUISlider(304,16,0.0,1.0,100.0,"HIGH THRESHOLD"));
+    gui->addWidgetDown(new ofxUISlider(304,16,0.0,1.0,100.0,"LOW THRESHOLD"));
+    gui->addWidgetDown(new ofxUISlider(304,16,0.0,1.0,100.0,"ATTRACT STRENGTH"));
+    gui->addWidgetDown(new ofxUISlider(304,16,0.0,1.0,100.0,"REPEL STRENGTH"));
+    gui->addWidgetDown(new ofxUISlider(304,16,0.0,1.0,100.0,"ORIENTATION STRENGTH"));
+
+
+
+
     
     //boilerplate callback listener
     ofAddListener(gui->newGUIEvent, this, &testApp::guiEvent);
@@ -222,4 +245,56 @@ void testApp::guiEvent(ofxUIEventArgs &e){
         ofSetFullscreen(toggle->getValue());
     }
     
+    else if(e.widget->getName() == "TOGGLE PLAYBACK")
+    {
+        ofxUIToggle *toggle = (ofxUIToggle *) e.widget;
+        if (toggle->getValue() == true){
+            mVideoPlayerController.playVideos();
+        }
+        if (toggle->getValue() == false){
+            mVideoPlayerController.pauseVideos();
+        }
+    }
+    else if(e.widget->getName() == "TOGGLE FLATTEN")
+    {
+        ofxUIToggle *toggle = (ofxUIToggle *) e.widget;
+        mFlatten = toggle->getValue();
+    }
+    
+    else if(e.widget->getName() == "HIGH THRESHOLD")
+    {
+        ofxUISlider *slider = (ofxUISlider *) e.widget;
+        mHighThresh = slider->getScaledValue();
+    }
+    
+    else if(e.widget->getName() == "LOW THRESHOLD")
+    {
+        ofxUISlider *slider = (ofxUISlider *) e.widget;
+        mLowThresh = slider->getScaledValue();
+    }
+    
+    else if(e.widget->getName() == "ATTRACT THRESHOLD")
+    {
+        ofxUISlider *slider = (ofxUISlider *) e.widget;
+        mAttractStrength = slider->getScaledValue();
+    }
+    
+    else if(e.widget->getName() == "REPEL THRESHOLD")
+    {
+        ofxUISlider *slider = (ofxUISlider *) e.widget;
+        mRepelStrength = slider->getScaledValue();
+    }
+    
+    else if(e.widget->getName() == "ORIENTATION THRESHOLD")
+    {
+        ofxUISlider *slider = (ofxUISlider *) e.widget;
+        mOrientStrength = slider->getScaledValue();
+    }
+    
+}
+
+void testApp::keyPressed(int key){
+    if(key == 'l'){
+        gui->toggleVisible();
+    }
 }

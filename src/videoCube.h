@@ -21,10 +21,12 @@ public:
     videoCube( ofVec3f loc, ofVec3f vel );
     void setup();
     void update();
+    void update( bool _flatten );
     void draw(videoPlayerController _vpc);
     
     //particle system
     void pullToCenter( ofVec3f _center );
+    void limitSpeed();
     
     int boxNumber;
     
@@ -38,6 +40,16 @@ public:
     
     //float mVel;
     float mSize;
+    
+    float mRadius;
+    float mDecay;
+    
+    float mMaxSpeed;
+    float mMaxSpeedSqrd;
+    float mMinSpeed;
+    float mMinSpeedSqrd;
+    
+    ofVec3f mVelNormal;
     
 };
 

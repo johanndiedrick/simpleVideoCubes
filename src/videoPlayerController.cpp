@@ -13,7 +13,6 @@ videoPlayerController::videoPlayerController(){
 }
 
 void videoPlayerController::setup(){
-    cout << "nothing here yet" << endl;
 }
 
 void videoPlayerController::update(){
@@ -51,6 +50,14 @@ void videoPlayerController::playVideos(){
 
     for(vector<ofVideoPlayer>::iterator vp = mVideoPlayers.begin(); vp != mVideoPlayers.end(); ++vp){
         vp->play();
+    }
+    
+}
+
+void videoPlayerController::pauseVideos(){
+    
+    for(vector<ofVideoPlayer>::iterator vp = mVideoPlayers.begin(); vp != mVideoPlayers.end(); ++vp){
+        vp->stop();
     }
     
 }

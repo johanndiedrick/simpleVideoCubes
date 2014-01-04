@@ -19,6 +19,8 @@ videoCube::videoCube(){
     mVel = ofVec3f(ofRandom(-1, 1), ofRandom(-1, 1), ofRandom(-1, 1));
     mLoc.set(ofRandom(50), ofRandom(50), ofRandom(50));
     mMass = 1.0;
+    mRadius			= 12.0f;
+	mDecay			= 0.99f;
 
     
 }
@@ -37,10 +39,19 @@ videoCube::videoCube( ofVec3f loc ){
 videoCube::videoCube( ofVec3f loc, ofVec3f vel ){
     
     videoNumber = ofRandom(NUM_OF_VIDEOS);
-    mMass = 1.0;
-    mAcc.set(0.0);
-    mLoc.set(loc);
-    mVel.set(vel);
+ 	mLoc			= loc;
+	mVel			= vel;
+	mAcc.set(0.0);
+    
+	mRadius			= 15.0f;
+	mDecay			= 0.99f;
+    
+    mMaxSpeed = ofRandom(2.0f, 3.0f);
+    mMaxSpeedSqrd = mMaxSpeed * mMaxSpeed;
+    mMinSpeed = ofRandom(1.0f, 1.5f);
+    mMinSpeedSqrd = mMinSpeed * mMinSpeed;
+    
+    mVelNormal = ofVec3f(0, 1,0); //y-axis
     
     
 }
@@ -52,25 +63,24 @@ void videoCube::setup(){
 void videoCube::update(){
     
     mVel += mAcc;
-    mLoc += mVel;
-    //decay
+    mVelNormal = mVel.normalize();
+    limitSpeed();
+	mLoc += mVel;
+	mVel *= mDecay;
     mAcc.set(0.0);
     
-    //float t = (ofGetElapsedTimef() + boxNumber * spacing) * mVel;
-    //		//ofVec3f pos(
-    //                    ofSignedNoise(t, 0, 0),
-    //                    ofSignedNoise(0, t, 0),
-    //                    ofSignedNoise(0, 0, t));
+}
+
+void videoCube::update( bool _flatten ){
     
-    //float boxSize = NUM_OF_VIDEOCUBES * ofNoise(pos.x, pos.y, pos.z);
-    
-    //pos *= cloudSize;
-	//ofTranslate(pos);
-    //ofRotateX(pos.x);
-    //ofRotateY(pos.y);
-    //ofRotateZ(pos.z);
-    //ofEnableDepthTest();
-    
+    if( _flatten ) mAcc.z = 0.0f;
+    mVel += mAcc;
+    mVelNormal = mVel.normalize();
+    limitSpeed();
+	mLoc += mVel;
+    if( _flatten ) mLoc.z = 0.0f;
+	mVel *= mDecay;
+    mAcc.set(0.0);
     
 }
 
@@ -84,7 +94,10 @@ void videoCube::draw(videoPlayerController _vpc){
 		ofFill();
         //ofPushMatrix();
         ofEnableDepthTest();
-        ofDrawBox(mLoc.x, mLoc.y, mLoc.z, 10);
+        ofDrawBox(mLoc.x, mLoc.y, mLoc.z, mRadius);
+    
+        //draw circle to see radius
+        ofDrawSphere(mLoc.x, mLoc.y, mRadius);
         ofDisableDepthTest();
         //ofPopStyle();
         _vpc.mVideoPlayers[videoNumber].getTextureReference().unbind();
@@ -106,6 +119,7 @@ void videoCube::pullToCenter(ofVec3f _center ){
     mVel -= dirToCenter * mMass * 0.025f;
     */
     
+    /*
     ofVec3f dirToCenter     =   mLoc - _center;
     float distToCenter    =   dirToCenter.length();
     float   maxDistance     =   200.0f;
@@ -116,8 +130,29 @@ void videoCube::pullToCenter(ofVec3f _center ){
         float pullStrength = 0.001f; // this keeps our video cubes in closer
         mVel -= dirToCenter * ( (distToCenter - maxDistance) * pullStrength );
     }
+    */
     
+    ofVec3f dirToCenter	= mLoc - _center;
+	float distToCenter	= dirToCenter.length();
+	float maxDistance	= 300.0f;
+	
+	if( distToCenter > maxDistance ){
+		dirToCenter.normalize();
+		float pullStrength = 0.0001f;
+		mVel -= dirToCenter * ( ( distToCenter - maxDistance ) * pullStrength );
+	}
     
 }
 
+void videoCube::limitSpeed(){
+    
+    float vLengthSqrd = mVel.lengthSquared();
+    
+    if (vLengthSqrd > mMaxSpeedSqrd) {
+        mVel = mVelNormal * mMaxSpeed;
+    } else if(vLengthSqrd < mMinSpeedSqrd){
+        mVel = mVelNormal * mMinSpeed;
+    }
+    
+}
 
