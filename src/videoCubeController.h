@@ -38,5 +38,9 @@ public:
     std::list<videoCube> mVideoCubes;
     
     int mBoxNumber;
+    
+    //particle system
+    void repulseVideoCubes();
+    void pullToCenter( ofVec3f _center );
 
 };

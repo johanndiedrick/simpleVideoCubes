@@ -181,4 +181,7 @@ dependencies: \
   ../../../addons/ofxJSON/libs/jsoncpp/include/json/forwards.h \
   ../../../addons/ofxJSON/libs/jsoncpp/include/json/reader.h \
   ../../../addons/ofxJSON/libs/jsoncpp/include/json/features.h \
-  ../../../addons/ofxJSON/libs/jsoncpp/include/json/writer.h
+  ../../../addons/ofxJSON/libs/jsoncpp/include/json/writer.h \
+  /Users/johanndiedrick/Documents/OpenFrameworks/of_v0.8.0_osx_release/addons/ofxGameCamera/src/ofxGameCamera.h \
+  /Users/johanndiedrick/Documents/OpenFrameworks/of_v0.8.0_osx_release/addons/ofxXmlSettings/src/ofxXmlSettings.h \
+  /Users/johanndiedrick/Documents/OpenFrameworks/of_v0.8.0_osx_release/addons/ofxXmlSettings/libs/tinyxml.h

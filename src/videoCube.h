@@ -18,17 +18,25 @@ class videoCube {
 public:
     videoCube();
     videoCube( ofVec3f loc );
+    videoCube( ofVec3f loc, ofVec3f vel );
     void setup();
     void update();
     void draw(videoPlayerController _vpc);
+    
+    //particle system
+    void pullToCenter( ofVec3f _center );
     
     int boxNumber;
     
     int videoNumber;
 
     ofVec3f mLoc;
-    ofVec3f mDir;
-    float mVel;
+    ofVec3f mVel;
+    ofVec3f mAcc;
+    
+    float mMass;
+    
+    //float mVel;
     float mSize;
     
 };

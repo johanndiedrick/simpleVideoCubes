@@ -22,7 +22,12 @@ void testApp::setup(){
 	ofSetFrameRate(60);
     ofSetVerticalSync(true);
     
-    cam.s
+    //setup ui
+    setupUI();
+    
+    //setup camera
+    cam.setup();
+    mCenter = ofVec3f(0);
 
     string youtube_dl = ofToDataPath("youtube-dl", true);
     
@@ -36,8 +41,9 @@ void testApp::setup(){
     youtube.open("http://gdata.youtube.com/feeds/api/playlists/PL3ngyh53O02CnHBb69HMZNwdvWo8w3MKW?&alt=json");
     
     //setup our video player and video cube controllers
-    mVideoCubeController.setup();
     mVideoPlayerController.setup();
+    //mVideoCubeController.setupWithGrid();
+    mVideoCubeController.setup();
     
     // Loop through all of the feed->entry items in the feed
     int numVideos = min(mVideoPlayerController.getNumberOfVideos(), (int)youtube["feed"]["entry"].size());
@@ -84,6 +90,13 @@ void testApp::update(){
     
     //update our videos
     mVideoPlayerController.update();
+    
+    //repulse our video cubes
+    mVideoCubeController.repulseVideoCubes();
+    
+    //pull our video cube to the center
+    mVideoCubeController.pullToCenter( mCenter );
+    
     
     //update our video cubes
     mVideoCubeController.update();
@@ -164,7 +177,7 @@ string testApp::createYoutubeSearchString(string ytsearchstr){
     
 }
 
-#pragma mark Mosuse Interactions
+#pragma mark Mouse Interactions
 
 void testApp::mousePressed(int x, int y, int button){
    // mVideoCubeController.addVideoCube( x, y ,0 );
@@ -173,3 +186,40 @@ void testApp::mouseReleased(int x, int y, int button){
     //
 }
 
+#pragma mark GUI
+
+void testApp::setupUI(){
+    
+    gui = new ofxUICanvas(0, 0, 320, 320);
+    
+    //add our widgets
+    gui->addWidgetDown(new ofxUILabel("Video Cubes", OFX_UI_FONT_LARGE));
+    gui->addWidgetDown(new ofxUISlider(304,16,0.0,255.0,100.0,"BACKGROUND VALUE"));
+    gui->addWidgetDown(new ofxUIToggle(32, 32, false, "FULLSCREEN"));
+    
+    //boilerplate callback listener
+    ofAddListener(gui->newGUIEvent, this, &testApp::guiEvent);
+    gui->loadSettings("GUI/guiSettings.xml");
+    
+}
+
+void testApp::exit(){
+    gui->saveSettings("GUI/guiSettings.xml");
+    delete gui;
+}
+
+void testApp::guiEvent(ofxUIEventArgs &e){
+    
+    if(e.widget->getName() == "BACKGROUND VALUE")
+    {
+        ofxUISlider *slider = (ofxUISlider *) e.widget;
+        ofBackground(slider->getScaledValue());
+    }
+    
+    else if(e.widget->getName() == "FULLSCREEN")
+    {
+        ofxUIToggle *toggle = (ofxUIToggle *) e.widget;
+        ofSetFullscreen(toggle->getValue());
+    }
+    
+}

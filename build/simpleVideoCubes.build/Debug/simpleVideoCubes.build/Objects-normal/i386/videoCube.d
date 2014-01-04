@@ -181,4 +181,54 @@ dependencies: \
   ../../../addons/ofxJSON/libs/jsoncpp/include/json/forwards.h \
   ../../../addons/ofxJSON/libs/jsoncpp/include/json/reader.h \
   ../../../addons/ofxJSON/libs/jsoncpp/include/json/features.h \
-  ../../../addons/ofxJSON/libs/jsoncpp/include/json/writer.h
+  ../../../addons/ofxJSON/libs/jsoncpp/include/json/writer.h \
+  /Users/johanndiedrick/Documents/OpenFrameworks/of_v0.8.0_osx_release/addons/ofxGameCamera/src/ofxGameCamera.h \
+  /Users/johanndiedrick/Documents/OpenFrameworks/of_v0.8.0_osx_release/addons/ofxXmlSettings/src/ofxXmlSettings.h \
+  /Users/johanndiedrick/Documents/OpenFrameworks/of_v0.8.0_osx_release/addons/ofxXmlSettings/libs/tinyxml.h \
+  /Users/johanndiedrick/Documents/OpenFrameworks/of_v0.8.0_osx_release/apps/myApps/simpleVideoCubes/../../../addons/ofxUI/src/ofxUI.h \
+  ../../../addons/ofxUI/src/ofxUIOFWrapper.h \
+  ../../../addons/ofxUI/src/ofxUIUtils.h \
+  ../../../addons/ofxUI/src/ofxUIRectangle.h \
+  ../../../addons/ofxUI/src/ofxUIWidget.h \
+  ../../../addons/ofxUI/src/ofxUIWidgetWithLabel.h \
+  ../../../addons/ofxUI/src/ofxUIEventArgs.h \
+  ../../../addons/ofxUI/src/ofxUILabel.h \
+  ../../../addons/ofxUI/src/ofxUIFPS.h \
+  ../../../addons/ofxUI/src/ofxUISlider.h \
+  ../../../addons/ofxUI/src/ofxUIMultiImageSlider.h \
+  ../../../addons/ofxUI/src/ofxUIImageSlider.h \
+  ../../../addons/ofxUI/src/ofxUIFPSSlider.h \
+  ../../../addons/ofxUI/src/ofxUIMinimalSlider.h \
+  ../../../addons/ofxUI/src/ofxUICircleSlider.h \
+  ../../../addons/ofxUI/src/ofxUIBiLabelSlider.h \
+  ../../../addons/ofxUI/src/ofxUIRangeSlider.h \
+  ../../../addons/ofxUI/src/ofxUIToggle.h \
+  ../../../addons/ofxUI/src/ofxUIButton.h \
+  ../../../addons/ofxUI/src/ofxUICustomImageButton.h \
+  ../../../addons/ofxUI/src/ofxUIMultiImageButton.h \
+  ../../../addons/ofxUI/src/ofxUIMultiImageToggle.h \
+  ../../../addons/ofxUI/src/ofxUIRadio.h \
+  ../../../addons/ofxUI/src/ofxUI2DPad.h \
+  ../../../addons/ofxUI/src/ofxUI2DGraph.h \
+  ../../../addons/ofxUI/src/ofxUITextInput.h \
+  ../../../addons/ofxUI/src/ofxUITextArea.h \
+  ../../../addons/ofxUI/src/ofxUINumberDialer.h \
+  ../../../addons/ofxUI/src/ofxUILabelButton.h \
+  ../../../addons/ofxUI/src/ofxUILabelToggle.h \
+  ../../../addons/ofxUI/src/ofxUIToggleMatrix.h \
+  ../../../addons/ofxUI/src/ofxUIImageButton.h \
+  ../../../addons/ofxUI/src/ofxUIImageToggle.h \
+  ../../../addons/ofxUI/src/ofxUIRotarySlider.h \
+  ../../../addons/ofxUI/src/ofxUISpacer.h \
+  ../../../addons/ofxUI/src/ofxUIDropDownList.h \
+  ../../../addons/ofxUI/src/ofxUIWaveform.h \
+  ../../../addons/ofxUI/src/ofxUISpectrum.h \
+  ../../../addons/ofxUI/src/ofxUIMovingGraph.h \
+  ../../../addons/ofxUI/src/ofxUIValuePlotter.h \
+  ../../../addons/ofxUI/src/ofxUIImage.h \
+  ../../../addons/ofxUI/src/ofxUIBaseDraws.h \
+  ../../../addons/ofxUI/src/ofxUIImageSampler.h \
+  ../../../addons/ofxUI/src/ofxUICanvas.h \
+  ../../../addons/ofxUI/src/ofxUIScrollableCanvas.h \
+  ../../../addons/ofxUI/src/ofxUISuperCanvas.h \
+  ../../../addons/ofxUI/src/ofxUITabBar.h

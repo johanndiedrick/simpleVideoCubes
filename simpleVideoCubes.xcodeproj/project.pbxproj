@@ -20,6 +20,7 @@
 		72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65EEFA3DA3526E9CDD9C21F9 /* ofxOscBundle.cpp */; };
 		7CED9FCC5BF62C4915C8D09F /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554E82F6BF0F134EC9BF40AA /* json_reader.cpp */; };
 		879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9BFFBBF4CC43DEE890B3C3E /* OscTypes.cpp */; };
+		8E44ACB018764BBD0009241E /* ofxGameCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E44ACAC18764BBD0009241E /* ofxGameCamera.cpp */; };
 		8E7229C1186D4EB50032F5E2 /* videoCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E7229BF186D4EB50032F5E2 /* videoCube.cpp */; };
 		8EA2E55F18751568001C5655 /* videoCubeController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EA2E55D18751568001C5655 /* videoCubeController.cpp */; };
 		8EA2E564187557AD001C5655 /* videoPlayerController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EA2E562187557AD001C5655 /* videoPlayerController.cpp */; };
@@ -146,6 +147,8 @@
 		885850B62FAD08EB1D2F0BF4 /* ofxUIRotarySlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIRotarySlider.h; path = ../../../addons/ofxUI/src/ofxUIRotarySlider.h; sourceTree = SOURCE_ROOT; };
 		8B30E93FD3D3475EED522A0E /* ofxOscBundle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscBundle.h; path = ../../../addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SOURCE_ROOT; };
 		8C75AFC8774A62495DD53464 /* ofxOscReceiver.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscReceiver.h; path = ../../../addons/ofxOsc/src/ofxOscReceiver.h; sourceTree = SOURCE_ROOT; };
+		8E44ACAC18764BBD0009241E /* ofxGameCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGameCamera.cpp; sourceTree = "<group>"; };
+		8E44ACAD18764BBD0009241E /* ofxGameCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxGameCamera.h; sourceTree = "<group>"; };
 		8E7229BF186D4EB50032F5E2 /* videoCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = videoCube.cpp; sourceTree = "<group>"; };
 		8E7229C0186D4EB50032F5E2 /* videoCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videoCube.h; sourceTree = "<group>"; };
 		8EA2E55D18751568001C5655 /* videoCubeController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = videoCubeController.cpp; sourceTree = "<group>"; };
@@ -357,6 +360,24 @@
 			name = oscpack;
 			sourceTree = "<group>";
 		};
+		8E44AC9718764BBC0009241E /* ofxGameCamera */ = {
+			isa = PBXGroup;
+			children = (
+				8E44ACAB18764BBC0009241E /* src */,
+			);
+			name = ofxGameCamera;
+			path = ../../../addons/ofxGameCamera;
+			sourceTree = "<group>";
+		};
+		8E44ACAB18764BBC0009241E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				8E44ACAC18764BBD0009241E /* ofxGameCamera.cpp */,
+				8E44ACAD18764BBD0009241E /* ofxGameCamera.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		8EF53C4E186E713800FE7921 /* shaders */ = {
 			isa = PBXGroup;
 			children = (
@@ -395,6 +416,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				8E44AC9718764BBC0009241E /* ofxGameCamera */,
 				E6053AB7FEC63D5F83825B88 /* ofxOsc */,
 				1F4FB5C423662B96ADFDCC0B /* ofxXmlSettings */,
 				2865DAEF86B1907A704CA70B /* ofxJSON */,
@@ -555,11 +577,11 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
-				8EF53C4E186E713800FE7921 /* shaders */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
+				8EF53C4E186E713800FE7921 /* shaders */,
 				BB4B014C10F69532006C3DED /* addons */,
 				E45BE5980E8CC70C009D7055 /* frameworks */,
 				E4B69B5B0A3A1756003C02F2 /* simpleVideoCubesDebug.app */,
@@ -727,6 +749,7 @@
 				62545D179C94265CA1389D4A /* OscOutboundPacketStream.cpp in Sources */,
 				C4782ECC372420ACE0615B74 /* OscPrintReceivedElements.cpp in Sources */,
 				0546D1A38E13BD319CC9755B /* OscReceivedElements.cpp in Sources */,
+				8E44ACB018764BBD0009241E /* ofxGameCamera.cpp in Sources */,
 				879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */,
 				63B57AC5BF4EF088491E0317 /* ofxXmlSettings.cpp in Sources */,
 				933A2227713C720CEFF80FD9 /* tinyxml.cpp in Sources */,

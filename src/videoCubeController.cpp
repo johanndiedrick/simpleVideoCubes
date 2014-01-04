@@ -13,7 +13,7 @@ videoCubeController::videoCubeController(){
 }
 
 void videoCubeController::setup(){
-    //
+    addVideoCubes(50, ofRandom(50), ofRandom(50), ofRandom(50));
 }
 
 void videoCubeController::setupWithGrid(){
@@ -69,4 +69,32 @@ void videoCubeController::addVideoCube(int _x, int _y, int _z){
     mVideoCubes.push_back(videoCube( ofVec3f(x, y, z) ));
     
     
+}
+
+#pragma mark Particle System Functions
+
+void videoCubeController::repulseVideoCubes(){
+    
+    for(list<videoCube>::iterator vc1 = mVideoCubes.begin(); vc1 != mVideoCubes.end(); ++vc1){
+        list<videoCube>::iterator vc2 = vc1;
+        for (++vc2; vc2 != mVideoCubes.end(); ++vc2) {
+         
+            ofVec3f dir = vc1->mLoc - vc2->mLoc;
+            float distSqrd = dir.lengthSquared();
+            
+            if (distSqrd>0.0f) {
+                dir.normalize();
+                float F = 1.0f/distSqrd;
+                vc1->mAcc += dir * ( F / vc1->mMass);
+                vc2->mAcc -= dir * ( F / vc2->mMass);
+            }
+        }
+    }
+    
+}
+
+void videoCubeController::pullToCenter( ofVec3f _center ){
+    for(list<videoCube>::iterator vc = mVideoCubes.begin(); vc != mVideoCubes.end(); ++vc){
+        vc->pullToCenter( _center );
+    }
 }
