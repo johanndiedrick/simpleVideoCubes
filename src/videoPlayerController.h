@@ -12,7 +12,7 @@
 #include <iostream>
 #include "ofMain.h"
 
-#define NUM_OF_VIDEOS 1
+#define NUM_OF_VIDEOS 5
 
 class videoPlayerController {
     

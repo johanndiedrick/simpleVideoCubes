@@ -24,6 +24,8 @@
 		8E7229C1186D4EB50032F5E2 /* videoCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E7229BF186D4EB50032F5E2 /* videoCube.cpp */; };
 		8EA2E55F18751568001C5655 /* videoCubeController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EA2E55D18751568001C5655 /* videoCubeController.cpp */; };
 		8EA2E564187557AD001C5655 /* videoPlayerController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EA2E562187557AD001C5655 /* videoPlayerController.cpp */; };
+		8EDD94BF1878D0FD0031EE14 /* background.frag in Sources */ = {isa = PBXBuildFile; fileRef = 8EDD94BD1878D0FD0031EE14 /* background.frag */; };
+		8EDD94C01878D0FD0031EE14 /* background.vert in Sources */ = {isa = PBXBuildFile; fileRef = 8EDD94BE1878D0FD0031EE14 /* background.vert */; };
 		8EF53C51186E71D800FE7921 /* bloom.frag in Sources */ = {isa = PBXBuildFile; fileRef = 8EF53C4F186E71D800FE7921 /* bloom.frag */; };
 		8EF53C52186E71D800FE7921 /* bloom.vert in Sources */ = {isa = PBXBuildFile; fileRef = 8EF53C50186E71D800FE7921 /* bloom.vert */; };
 		8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81967292BFC87A0144BD32C6 /* ofxOscSender.cpp */; };
@@ -155,6 +157,8 @@
 		8EA2E55E18751568001C5655 /* videoCubeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videoCubeController.h; sourceTree = "<group>"; };
 		8EA2E562187557AD001C5655 /* videoPlayerController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = videoPlayerController.cpp; sourceTree = "<group>"; };
 		8EA2E563187557AD001C5655 /* videoPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videoPlayerController.h; sourceTree = "<group>"; };
+		8EDD94BD1878D0FD0031EE14 /* background.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = background.frag; path = ../../../../openFrameworks/tutorials/shader/01_simpleColorQuad/bin/data/shadersGL2/background.frag; sourceTree = "<group>"; };
+		8EDD94BE1878D0FD0031EE14 /* background.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = background.vert; path = ../../../../openFrameworks/tutorials/shader/01_simpleColorQuad/bin/data/shadersGL2/background.vert; sourceTree = "<group>"; };
 		8EF53C4F186E71D800FE7921 /* bloom.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = bloom.frag; path = bin/data/shaders/bloom.frag; sourceTree = "<group>"; };
 		8EF53C50186E71D800FE7921 /* bloom.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = bloom.vert; path = bin/data/shaders/bloom.vert; sourceTree = "<group>"; };
 		961DE8B564EF22E65C9480AE /* ofxUI2DPad.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUI2DPad.h; path = ../../../addons/ofxUI/src/ofxUI2DPad.h; sourceTree = SOURCE_ROOT; };
@@ -381,6 +385,8 @@
 		8EF53C4E186E713800FE7921 /* shaders */ = {
 			isa = PBXGroup;
 			children = (
+				8EDD94BD1878D0FD0031EE14 /* background.frag */,
+				8EDD94BE1878D0FD0031EE14 /* background.vert */,
 				8EF53C4F186E71D800FE7921 /* bloom.frag */,
 				8EF53C50186E71D800FE7921 /* bloom.vert */,
 			);
@@ -736,6 +742,7 @@
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
+				8EDD94BF1878D0FD0031EE14 /* background.frag in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
 				8EF53C52186E71D800FE7921 /* bloom.vert in Sources */,
@@ -748,6 +755,7 @@
 				28090DEB5109115003E8F1C5 /* UdpSocketWin.cpp in Sources */,
 				62545D179C94265CA1389D4A /* OscOutboundPacketStream.cpp in Sources */,
 				C4782ECC372420ACE0615B74 /* OscPrintReceivedElements.cpp in Sources */,
+				8EDD94C01878D0FD0031EE14 /* background.vert in Sources */,
 				0546D1A38E13BD319CC9755B /* OscReceivedElements.cpp in Sources */,
 				8E44ACB018764BBD0009241E /* ofxGameCamera.cpp in Sources */,
 				879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */,

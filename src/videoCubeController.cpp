@@ -114,6 +114,12 @@ void videoCubeController::repulseVideoCubes(){
     
 }
 
+void videoCubeController::setSpeed( float _speed ){
+    for(list<videoCube>::iterator vc = mVideoCubes.begin(); vc != mVideoCubes.end(); ++vc){
+        vc->setSpeed( _speed );
+    }
+}
+
 void videoCubeController::pullToCenter( ofVec3f _center ){
     for(list<videoCube>::iterator vc = mVideoCubes.begin(); vc != mVideoCubes.end(); ++vc){
         vc->pullToCenter( _center );

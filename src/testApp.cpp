@@ -19,6 +19,9 @@ string ofSystemCall(string command)
 void testApp::setup(){
 
     ofBackground(0,0,0);
+    red = 255;
+    green, blue = 0;
+    
 	ofSetFrameRate(60);
     ofSetVerticalSync(true);
     
@@ -90,13 +93,16 @@ void testApp::setup(){
 	ofClear(255,255,255, 0);
     rgbaFboFloat.end();
 
+    //load shaders
     bloomShader.load("shaders/bloom.vert", "shaders/bloom.frag");
-
+    //backgroundShader.load("shaders/background.vert", "shaders/background.frag");
 
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
+    
+    changeBackgroundColor();
     
     if (mLowThresh > mHighThresh) mLowThresh = mHighThresh;
     //update our videos
@@ -123,6 +129,7 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    //ofBackground(red, green, blue);
 
     //draw our fbo with some cute shaders on top xoxo
     bloomShader.begin();
@@ -135,8 +142,12 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::drawIntoFBO(){
+  //  backgroundShader.begin();
+    //backgroundShader.setUniformTexture("texture", ofBackground, <#int textureLocation#>)
+  //  ofBackground(red, green, blue);
+    //backgroundShader.end();
     
-    //we clear the fbo if c is pressed.
+        //we clear the fbo if c is pressed.
 	//this completely clears the buffer so you won't see any trails
 	if( ofGetKeyPressed('c') ){
 		ofClear(255,255,255, 0);
@@ -215,6 +226,8 @@ void testApp::setupUI(){
     gui->addWidgetDown(new ofxUISlider(304,16,0.0,1.0,100.0,"ATTRACT STRENGTH"));
     gui->addWidgetDown(new ofxUISlider(304,16,0.0,1.0,100.0,"REPEL STRENGTH"));
     gui->addWidgetDown(new ofxUISlider(304,16,0.0,1.0,100.0,"ORIENTATION STRENGTH"));
+    gui->addWidgetDown(new ofxUISlider(304,16,0.0,1.0,100.0,"VIDEOCUBE DECELERATION"));
+
 
 
 
@@ -291,10 +304,42 @@ void testApp::guiEvent(ofxUIEventArgs &e){
         mOrientStrength = slider->getScaledValue();
     }
     
+    else if(e.widget->getName() == "VIDEOCUBE DECELERATION")
+    {
+        ofxUISlider *slider = (ofxUISlider *) e.widget;
+        mVideoCubeController.setSpeed(slider->getScaledValue());
+    }
+    
 }
 
 void testApp::keyPressed(int key){
     if(key == 'l'){
         gui->toggleVisible();
     }
+}
+
+void testApp::changeBackgroundColor(){
+  //  if(green == 0 && blue == 0){
+   //     red++;
+   // }
+    if (red == 255 && blue == 0) {
+        green++;
+    }
+    if(green == 255 && red > 0){
+        red--;
+    }
+    if(red == 0 && green == 255){
+        blue++;
+    }
+    if (blue == 255 && green > 0){
+        green--;
+    }
+    if (green == 0 && blue == 255){
+        red++;
+    }
+    if(red == 255 && blue > 0){
+        blue--;
+    }
+    ofBackground(red, green, blue);
+    //cout << "bg | red: " << red << " green: " << green << " blue: " << blue << endl;
 }

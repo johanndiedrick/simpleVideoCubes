@@ -48,11 +48,11 @@ videoCube::videoCube( ofVec3f loc, ofVec3f vel ){
     
     mMaxSpeed = ofRandom(2.0f, 3.0f);
     mMaxSpeedSqrd = mMaxSpeed * mMaxSpeed;
-    mMinSpeed = ofRandom(1.0f, 1.5f);
+    mMinSpeed = ofRandom(0.0f);//, 0.9f); // some videocubes can have a min speed of 0.0f
     mMinSpeedSqrd = mMinSpeed * mMinSpeed;
     
-    mVelNormal = ofVec3f(0, 1,0); //y-axis
-    
+    mVelNormal = ofVec3f(0, 1, 0); //y-axis
+    mDeacc = 1.0f;
     
 }
 
@@ -77,10 +77,12 @@ void videoCube::update( bool _flatten ){
     mVel += mAcc;
     mVelNormal = mVel.normalize();
     limitSpeed();
+    mVel *= mDeacc; //decelerate
 	mLoc += mVel;
     if( _flatten ) mLoc.z = 0.0f;
 	mVel *= mDecay;
     mAcc.set(0.0);
+    
     
 }
 
@@ -97,7 +99,7 @@ void videoCube::draw(videoPlayerController _vpc){
         ofDrawBox(mLoc.x, mLoc.y, mLoc.z, mRadius);
     
         //draw circle to see radius
-        ofDrawSphere(mLoc.x, mLoc.y, mRadius);
+        //ofDrawSphere(mLoc.x, mLoc.y, mRadius);
         ofDisableDepthTest();
         //ofPopStyle();
         _vpc.mVideoPlayers[videoNumber].getTextureReference().unbind();
@@ -154,5 +156,9 @@ void videoCube::limitSpeed(){
         mVel = mVelNormal * mMinSpeed;
     }
     
+}
+
+void videoCube::setSpeed(float _speed){
+    mDeacc = _speed;
 }
 

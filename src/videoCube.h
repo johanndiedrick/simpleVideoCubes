@@ -35,6 +35,7 @@ public:
     ofVec3f mLoc;
     ofVec3f mVel;
     ofVec3f mAcc;
+    float mDeacc; //decelerate
     
     float mMass;
     
@@ -50,6 +51,8 @@ public:
     float mMinSpeedSqrd;
     
     ofVec3f mVelNormal;
+    
+    void setSpeed(float _speed);
     
 };
 

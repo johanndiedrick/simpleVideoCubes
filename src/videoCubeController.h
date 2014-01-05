@@ -18,7 +18,7 @@
 this is where we define the number of video cubes.
 */
 
-#define NUM_OF_VIDEOCUBES 500
+#define NUM_OF_VIDEOCUBES 100
 #define VIDEOCUBE_SPACING 20.0;
 
 #endif /* defined(__simpleVideoCubes__videoCubeController__) */
@@ -49,7 +49,10 @@ public:
     float mNumParticles;
     ofVec3f mParticleCentroid;
     
+    void setSpeed( float _speed );
+    
     //special maths stolen from cinder :)
     ofVec3f randVec3f();
 
+    
 };

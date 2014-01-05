@@ -39,8 +39,13 @@ class testApp : public ofBaseApp{
         void drawIntoFBO();
         int fadeAmnt;
     
-        //shader
+        //shaders
         ofShader bloomShader;
+        ofShader backgroundShader;
+    
+        //background (make into a shader)
+        int red, green, blue;
+        void changeBackgroundColor();
     
         //youtube scraping
         string youtube_search_string;
