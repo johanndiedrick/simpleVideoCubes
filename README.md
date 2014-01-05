@@ -30,3 +30,9 @@ References:
 [ofxJSON](https://github.com/jefftimesten/ofxJSON)
 
 [Youtube API](https://developers.google.com/youtube/)
+
+[ofxGameCamera](https://github.com/Flightphase/ofxGameCamera)
+
+[ofxUI](https://github.com/rezaali/ofxUI)
+
+[Hello, Cinder](http://libcinder.org/docs/v0.8.5/hello_cinder.html)
