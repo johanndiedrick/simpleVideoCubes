@@ -54,6 +54,15 @@ public:
     
     void setSpeed(float _speed);
     
+    
+    //PREDATOR STUFF
+    float mFear;
+    float mIsDead;
+    float mCrowdFactor;
+    bool followed;
+    float mNumNeighbors;
+    ofVec3f mNeighborPos;
+    void addNeighborPos( ofVec3f pos );
 };
 
 #endif /* defined(__simpleVideoCubes__videoCubes__) */

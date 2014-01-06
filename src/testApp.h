@@ -61,7 +61,6 @@ class testApp : public ofBaseApp{
         void setupUI();
         void exit();
         void guiEvent(ofxUIEventArgs &e);
-        bool drawUI;
     
         //booleans
     

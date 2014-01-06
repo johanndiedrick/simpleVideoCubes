@@ -10,10 +10,14 @@
 
 videoCubeController::videoCubeController(){
     
+//    noise = ofNoise(4);
+    
 }
 
 void videoCubeController::setup(){
     addVideoCubes(NUM_OF_VIDEOCUBES);
+    addPredators(NUM_OF_PREDATORS);
+    
 }
 
 void videoCubeController::setupWithGrid(){
@@ -32,19 +36,15 @@ void videoCubeController::setupWithGrid(){
     
 }
 
-void videoCubeController::update(){
-    
-    for(list<videoCube>::iterator vc = mVideoCubes.begin(); vc != mVideoCubes.end(); ++vc){
-        vc->update();
-    }
-    
-}
-
 void videoCubeController::update( bool _flatten ){
     
     for(list<videoCube>::iterator vc = mVideoCubes.begin(); vc != mVideoCubes.end(); ++vc){
         vc->update( _flatten );
     }
+    for( list<Predator>::iterator p = mPredators.begin(); p != mPredators.end(); ++p ){
+        p->update( _flatten );
+    }
+    //end predator stuffs
     
 }
 
@@ -54,7 +54,17 @@ void videoCubeController::draw(videoPlayerController _vpc){
         vc->draw(_vpc);
     }
     
+    //predator stuff
+    for( list<Predator>::iterator p = mPredators.begin(); p != mPredators.end(); ++p ){
+        //float hungerColor = 1.0f - p->mHunger;
+       // gl::color( ColorA( 1.0f, hungerColor, hungerColor, 1.0f ) );
+        p->draw();
+    }
+    //end predator stuff
+    
 }
+
+#pragma mark Add Video Cubes
 
 void videoCubeController::addVideoCubes(int amount, int _x, int _y, int _z){
     
@@ -92,6 +102,19 @@ void videoCubeController::addVideoCube(int _x, int _y, int _z){
     
 }
 
+#pragma mark Add Predators
+
+void videoCubeController::addPredators(int amount){
+    for( int i=0; i<amount; i++ )
+    {
+        ofVec3f pos = randVec3f() * ofRandom( 500.0f, 750.0f );
+        ofVec3f vel = randVec3f();
+        mPredators.push_back( Predator( pos, vel ) );
+    }
+    
+}
+
+
 #pragma mark Particle System Functions
 
 void videoCubeController::repulseVideoCubes(){
@@ -124,6 +147,12 @@ void videoCubeController::pullToCenter( ofVec3f _center ){
     for(list<videoCube>::iterator vc = mVideoCubes.begin(); vc != mVideoCubes.end(); ++vc){
         vc->pullToCenter( _center );
     }
+    
+    //PREDATOR STUFFS
+    for( list<Predator>::iterator p = mPredators.begin(); p != mPredators.end(); ++p ){
+        p->pullToCenter( _center );
+    }
+    //END OF PREDATOR STUFFS
 }
 
 /*
@@ -178,7 +207,7 @@ void videoCubeController::applyForce(float _zoneRadiusSqrd, float thresh){
 }
 */
 
-void videoCubeController::applyForce( float _zoneRadiusSqrd, float _lowThresh, float _highThresh, float _attractStrength, float _repelStrength, float _orientStrength){
+void videoCubeController::applyForceToVideoCubes( float _zoneRadiusSqrd, float _lowThresh, float _highThresh, float _attractStrength, float _repelStrength, float _orientStrength){
     
     float twoPI = M_PI * 2.0f;
     mParticleCentroid = ofVec3f(0);
@@ -194,6 +223,11 @@ void videoCubeController::applyForce( float _zoneRadiusSqrd, float _lowThresh, f
             
             if( distSqrd < _zoneRadiusSqrd ){ // Neighbor is in the zone
                 float percent = distSqrd/_zoneRadiusSqrd;
+                
+                //predator stuff
+                vc1->addNeighborPos(vc2->mLoc);
+                vc2->addNeighborPos(vc1->mLoc);
+                //end predator stuff
                 
                 if( percent < _lowThresh ){ // Separation
                     float F = ( _lowThresh/percent - 1.0f ) * _repelStrength;
@@ -224,10 +258,92 @@ void videoCubeController::applyForce( float _zoneRadiusSqrd, float _lowThresh, f
         }
         
         mParticleCentroid += vc1->mLoc;
+        
+        ///PREDATOR STUFFS
+        // ADD PERLIN NOISE INFLUENCE
+       // float scale = 0.002f;
+       // float multi = 0.01f;
+       // Vec3f perlin = mPerlin.dfBm( p1->mPos * scale ) * multi;
+       // p1->mAcc += perlin;
+        
+        
+        // CHECK WHETHER THERE IS ANY PARTICLE/PREDATOR INTERACTION
+        float eatDistSqrd = 50.0f;
+        float predatorZoneRadiusSqrd = _zoneRadiusSqrd * 5.0f;
+        for( list<Predator>::iterator predator = mPredators.begin(); predator != mPredators.end(); ++predator ) {
+            
+            ofVec3f dir = vc1->mLoc - predator->mPos[0];
+            float distSqrd = dir.lengthSquared();
+            
+            if( distSqrd < predatorZoneRadiusSqrd ){
+                if( distSqrd > eatDistSqrd ){
+                    float F = ( predatorZoneRadiusSqrd/distSqrd - 1.0f ) * 0.1f;
+                    vc1->mFear += F * 0.1f;
+                    dir = dir.normalized() * F;
+                    vc1->mAcc += dir;
+                    if( predator->mIsHungry )
+                        predator->mAcc += dir * 0.04f * predator->mHunger;
+                } else {
+                    vc1->mIsDead = true;
+                    predator->mHunger = 0.0f;
+                    predator->mIsHungry = false;
+                }
+            }
+        }
+        
     }
+    
+    ///END OF PREDATOR STUFFS
+    
     mParticleCentroid /= (float)mNumParticles;
 
 }
+
+void videoCubeController::applyForceToPredators( float zoneRadius, float lowerThresh, float higherThresh )
+{
+    float twoPI = M_PI * 2.0f;
+    for( list<Predator>::iterator P1 = mPredators.begin(); P1 != mPredators.end(); ++P1 ){
+        
+        list<Predator>::iterator P2 = P1;
+        for( ++P2; P2 != mPredators.end(); ++P2 ) {
+            ofVec3f dir = P1->mPos[0] - P2->mPos[0];
+            float distSqrd = dir.lengthSquared();
+            float zoneRadiusSqrd = zoneRadius * zoneRadius * 4.0f;
+            
+            if( distSqrd < zoneRadiusSqrd ){                // Neighbor is in the zone
+                float per = distSqrd/zoneRadiusSqrd;
+                if( per < lowerThresh ){                        // Separation
+                    float F = ( lowerThresh/per - 1.0f ) * 0.01f;
+                    dir.normalize();
+                    dir *= F;
+                    
+                    P1->mAcc += dir;
+                    P2->mAcc -= dir;
+                } else if( per < higherThresh ){        // Alignment
+                    float threshDelta        = higherThresh - lowerThresh;
+                    float adjPer                = ( per - lowerThresh )/threshDelta;
+                    float F                                = ( 1.0f - cos( adjPer * twoPI ) * -0.5f + 0.5f ) * 0.3f;
+                    
+                    P1->mAcc += P2->mVelNormal * F;
+                    P2->mAcc += P1->mVelNormal * F;
+                    
+                } else {                                                        // Cohesion
+                    float threshDelta        = 1.0f - higherThresh;
+                    float adjPer                = ( per - higherThresh )/threshDelta;
+                    float F                                = ( 1.0f - ( cos( adjPer * twoPI ) * -0.5f + 0.5f ) ) * 0.1f;
+                    
+                    dir.normalize();
+                    dir *= F;
+                    
+                    P1->mAcc -= dir;
+                    P2->mAcc += dir;
+                }
+            }
+        }
+    }
+}
+
+
 
 void videoCubeController::applyForce( float _zoneRadiusSqrd,float _mHighThresh){
     

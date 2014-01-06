@@ -10,7 +10,9 @@
 #define __simpleVideoCubes__videoCubeController__
 
 #include <iostream>
+#import "ofMain.h"
 #include "videoCube.h"
+#include "Predator.h"
 #include "videoPlayerController.h"
 
 
@@ -18,8 +20,9 @@
 this is where we define the number of video cubes.
 */
 
-#define NUM_OF_VIDEOCUBES 100
-#define VIDEOCUBE_SPACING 20.0;
+#define NUM_OF_VIDEOCUBES 500
+#define NUM_OF_PREDATORS 5
+#define VIDEOCUBE_SPACING 20.0
 
 #endif /* defined(__simpleVideoCubes__videoCubeController__) */
 class videoCubeController {
@@ -36,8 +39,12 @@ public:
     void addVideoCubes(int amount);
     void addVideoCubes(int amount, int _x, int _y, int _z);
     void removeVideoCubes(int amount);
-
     std::list<videoCube> mVideoCubes;
+    
+    //add predators to break up flocking
+    std::list<Predator> mPredators;
+    void addPredators(int amount);
+    
     
     int mBoxNumber;
     
@@ -45,7 +52,10 @@ public:
     void repulseVideoCubes();
     void pullToCenter( ofVec3f _center );
     void applyForce( float _zoneRadiusSqrd, float _mHighThresh);
-    void applyForce( float _zoneRadiusSqrd, float _lowThresh, float _highThresh, float _attractStrength, float _repelStrength, float _orientStrength);
+    void applyForceToVideoCubes( float _zoneRadiusSqrd, float _lowThresh, float _highThresh, float _attractStrength, float _repelStrength, float _orientStrength);
+    
+    void applyForceToPredators(float _zoneRadiusSqrd, float _mHighThresh, float _mLowThresh);
+    
     float mNumParticles;
     ofVec3f mParticleCentroid;
     
@@ -53,6 +63,8 @@ public:
     
     //special maths stolen from cinder :)
     ofVec3f randVec3f();
+  //  ofNoise noise;
+
 
     
 };

@@ -6,7 +6,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>FULLSCREEN</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -21,30 +21,30 @@
 <Widget>
     <Kind>4</Kind>
     <Name>HIGH THRESHOLD</Name>
-    <Value>0.878289461</Value>
+    <Value>0.934210539</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>LOW THRESHOLD</Name>
-    <Value>0.756578922</Value>
+    <Value>0.802631557</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>ATTRACT STRENGTH</Name>
-    <Value>0.072368421</Value>
+    <Value>0.036184210</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>REPEL STRENGTH</Name>
-    <Value>0.148026317</Value>
+    <Value>0.082236841</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>ORIENTATION STRENGTH</Name>
-    <Value>0.138157889</Value>
+    <Value>0.072368421</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>VIDEOCUBE DECELERATION</Name>
-    <Value>0.095394738</Value>
+    <Value>0.996710539</Value>
 </Widget>

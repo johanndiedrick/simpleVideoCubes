@@ -10,7 +10,7 @@
 #include "testApp.h"
 
 
-
+//not maintained
 videoCube::videoCube(){
     
     videoNumber = ofRandom(NUM_OF_VIDEOS);
@@ -25,6 +25,7 @@ videoCube::videoCube(){
     
 }
 
+//not maintained
 videoCube::videoCube( ofVec3f loc ){
     
     videoNumber = ofRandom(NUM_OF_VIDEOS);
@@ -54,12 +55,21 @@ videoCube::videoCube( ofVec3f loc, ofVec3f vel ){
     mVelNormal = ofVec3f(0, 1, 0); //y-axis
     mDeacc = 1.0f;
     
+    //predator stuff
+    mFear = 1.0f;
+    mIsDead = false;
+    mCrowdFactor = 1.0;
+    followed = 1.0;
+    mNumNeighbors = 0;
+    mNeighborPos = ofVec3f(0);
+    
 }
 
 void videoCube::setup(){
     //
 }
 
+//not maintained
 void videoCube::update(){
     
     mVel += mAcc;
@@ -73,16 +83,24 @@ void videoCube::update(){
 
 void videoCube::update( bool _flatten ){
     
+    //predator stuff
+    mCrowdFactor -= ( mCrowdFactor - ( 1.0f - mNumNeighbors * 0.02f ) ) * 0.1f;
+    mCrowdFactor = ofClamp( mCrowdFactor, 0.5f, 1.0f );
+    
+    mFear -= ( mFear - 0.0f ) * 0.2f;
+    //end predator stuff
+    
     if( _flatten ) mAcc.z = 0.0f;
-    mVel += mAcc;
-    mVelNormal = mVel.normalize();
-    limitSpeed();
-    mVel *= mDeacc; //decelerate
-	mLoc += mVel;
+    mVel += mAcc; // increase velocity by acceleration
+    mVelNormal = mVel.normalize(); // get a normalized velocity
+    limitSpeed(); // make sure the speed isn't over our min/max
+    mVel *= mDeacc; //decelerate (slow down)
+	mLoc += mVel; // move our video cube by velocity vector
     if( _flatten ) mLoc.z = 0.0f;
 	mVel *= mDecay;
     mAcc.set(0.0);
-    
+    mNeighborPos.set(0);
+    mNumNeighbors = 0;
     
 }
 
@@ -148,6 +166,22 @@ void videoCube::pullToCenter(ofVec3f _center ){
 
 void videoCube::limitSpeed(){
     
+    //predator stuff
+    
+    float maxSpeed = mMaxSpeed + mCrowdFactor;
+    float maxSpeedSqrd = maxSpeed * maxSpeed;
+    
+    float vLengthSqrd = mVel.lengthSquared();
+    if( vLengthSqrd > maxSpeedSqrd ){
+        mVel = mVelNormal * maxSpeed;
+        
+    } else if( vLengthSqrd < mMinSpeedSqrd ){
+        mVel = mVelNormal * mMinSpeed;
+    }
+    mVel *= (1.0 + mFear );
+    
+    /*
+    
     float vLengthSqrd = mVel.lengthSquared();
     
     if (vLengthSqrd > mMaxSpeedSqrd) {
@@ -155,6 +189,7 @@ void videoCube::limitSpeed(){
     } else if(vLengthSqrd < mMinSpeedSqrd){
         mVel = mVelNormal * mMinSpeed;
     }
+     */
     
 }
 
@@ -162,3 +197,8 @@ void videoCube::setSpeed(float _speed){
     mDeacc = _speed;
 }
 
+void videoCube::addNeighborPos( ofVec3f pos )
+{
+    mNeighborPos += pos;
+    mNumNeighbors ++;
+}

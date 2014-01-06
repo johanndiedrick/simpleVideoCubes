@@ -17,25 +17,26 @@ string ofSystemCall(string command)
 
 //--------------------------------------------------------------
 void testApp::setup(){
-
+    
+    ofSetFrameRate(60);
+    ofSetVerticalSync(true);
+    
+    //setup background
     ofBackground(0,0,0);
     red = 255;
     green, blue = 0;
     
-	ofSetFrameRate(60);
-    ofSetVerticalSync(true);
-    
     //set up some params for our particle system, this should all be in the ui
-    mZoneRadius = 65.0f;
-    mLowThresh = 0.4f;
-    mHighThresh = 0.75f;
+    //we should also load this in from the ui! to do...
+    mZoneRadius = 80.0f;
+    mLowThresh = 0.5f;
+    mHighThresh = 0.8f;
     mAttractStrength = 0.005f;
     mRepelStrength = 0.01f;
     mOrientStrength = 0.01f;
     mFlatten = false;
 
     //setup ui
-    drawUI = false;
     setupUI();
     
     //setup camera
@@ -54,10 +55,9 @@ void testApp::setup(){
     youtube.open("http://gdata.youtube.com/feeds/api/playlists/PL3ngyh53O02CnHBb69HMZNwdvWo8w3MKW?&alt=json");
     
     //setup our video player and video cube controllers
-    mVideoPlayerController.setup();
-    //mVideoCubeController.setupWithGrid();
     mVideoCubeController.setup();
-    
+
+    mVideoPlayerController.setup();
     // Loop through all of the feed->entry items in the feed
     int numVideos = min(mVideoPlayerController.getNumberOfVideos(), (int)youtube["feed"]["entry"].size());
     for(int i=0; i<numVideos; i++)
@@ -112,7 +112,8 @@ void testApp::update(){
     //mVideoCubeController.repulseVideoCubes();
     
     //apply our forces to our video cubes
-    mVideoCubeController.applyForce( mZoneRadius * mZoneRadius, mLowThresh, mHighThresh, mAttractStrength, mRepelStrength, mOrientStrength );
+    mVideoCubeController.applyForceToVideoCubes( mZoneRadius * mZoneRadius, mLowThresh, mHighThresh, mAttractStrength, mRepelStrength, mOrientStrength );
+    mVideoCubeController.applyForceToPredators(mZoneRadius, 0.4f, 0.7f);
     //pull our video cube to the center
     mVideoCubeController.pullToCenter( mCenter );
     

@@ -21,6 +21,7 @@
 		7CED9FCC5BF62C4915C8D09F /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554E82F6BF0F134EC9BF40AA /* json_reader.cpp */; };
 		879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9BFFBBF4CC43DEE890B3C3E /* OscTypes.cpp */; };
 		8E44ACB018764BBD0009241E /* ofxGameCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E44ACAC18764BBD0009241E /* ofxGameCamera.cpp */; };
+		8E5F9571187A39350058C9C3 /* Predator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E5F956F187A39350058C9C3 /* Predator.cpp */; };
 		8E7229C1186D4EB50032F5E2 /* videoCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E7229BF186D4EB50032F5E2 /* videoCube.cpp */; };
 		8EA2E55F18751568001C5655 /* videoCubeController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EA2E55D18751568001C5655 /* videoCubeController.cpp */; };
 		8EA2E564187557AD001C5655 /* videoPlayerController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EA2E562187557AD001C5655 /* videoPlayerController.cpp */; };
@@ -151,6 +152,8 @@
 		8C75AFC8774A62495DD53464 /* ofxOscReceiver.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscReceiver.h; path = ../../../addons/ofxOsc/src/ofxOscReceiver.h; sourceTree = SOURCE_ROOT; };
 		8E44ACAC18764BBD0009241E /* ofxGameCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGameCamera.cpp; sourceTree = "<group>"; };
 		8E44ACAD18764BBD0009241E /* ofxGameCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxGameCamera.h; sourceTree = "<group>"; };
+		8E5F956F187A39350058C9C3 /* Predator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Predator.cpp; sourceTree = "<group>"; };
+		8E5F9570187A39350058C9C3 /* Predator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Predator.h; sourceTree = "<group>"; };
 		8E7229BF186D4EB50032F5E2 /* videoCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = videoCube.cpp; sourceTree = "<group>"; };
 		8E7229C0186D4EB50032F5E2 /* videoCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videoCube.h; sourceTree = "<group>"; };
 		8EA2E55D18751568001C5655 /* videoCubeController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = videoCubeController.cpp; sourceTree = "<group>"; };
@@ -602,6 +605,8 @@
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				8EA2E55E18751568001C5655 /* videoCubeController.h */,
 				8EA2E55D18751568001C5655 /* videoCubeController.cpp */,
+				8E5F956F187A39350058C9C3 /* Predator.cpp */,
+				8E5F9570187A39350058C9C3 /* Predator.h */,
 				8E7229C0186D4EB50032F5E2 /* videoCube.h */,
 				8E7229BF186D4EB50032F5E2 /* videoCube.cpp */,
 				8EA2E562187557AD001C5655 /* videoPlayerController.cpp */,
@@ -759,6 +764,7 @@
 				0546D1A38E13BD319CC9755B /* OscReceivedElements.cpp in Sources */,
 				8E44ACB018764BBD0009241E /* ofxGameCamera.cpp in Sources */,
 				879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */,
+				8E5F9571187A39350058C9C3 /* Predator.cpp in Sources */,
 				63B57AC5BF4EF088491E0317 /* ofxXmlSettings.cpp in Sources */,
 				933A2227713C720CEFF80FD9 /* tinyxml.cpp in Sources */,
 				9D44DC88EF9E7991B4A09951 /* tinyxmlerror.cpp in Sources */,
