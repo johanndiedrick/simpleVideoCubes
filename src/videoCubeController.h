@@ -20,7 +20,7 @@
 this is where we define the number of video cubes.
 */
 
-#define NUM_OF_VIDEOCUBES 500
+#define NUM_OF_VIDEOCUBES 20
 #define NUM_OF_PREDATORS 5
 #define VIDEOCUBE_SPACING 20.0
 

@@ -22,7 +22,9 @@ void testApp::setup(){
     ofSetVerticalSync(true);
     
     //setup background
-    ofBackground(0,0,0);
+    ofSetBackgroundAuto(false);
+    ofBackground(0, 0, 0);
+    
     red = 255;
     green, blue = 0;
     
@@ -95,21 +97,15 @@ void testApp::setup(){
 
     //load shaders
     bloomShader.load("shaders/bloom.vert", "shaders/bloom.frag");
-    //backgroundShader.load("shaders/background.vert", "shaders/background.frag");
 
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     
-    changeBackgroundColor();
-    
     if (mLowThresh > mHighThresh) mLowThresh = mHighThresh;
     //update our videos
     mVideoPlayerController.update();
-    
-    //repulse our video cubes
-    //mVideoCubeController.repulseVideoCubes();
     
     //apply our forces to our video cubes
     mVideoCubeController.applyForceToVideoCubes( mZoneRadius * mZoneRadius, mLowThresh, mHighThresh, mAttractStrength, mRepelStrength, mOrientStrength );
@@ -130,8 +126,14 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    //ofBackground(red, green, blue);
+    //changeBackgroundColor();
 
+    ofPushStyle();
+	ofFill();
+	ofSetColor(0,0,0, fadeAmnt);
+	ofRect(0,0,ofGetWindowWidth(),ofGetWindowHeight());
+    ofPopStyle();
+    
     //draw our fbo with some cute shaders on top xoxo
     bloomShader.begin();
     bloomShader.setUniformTexture("texture", rgbaFboFloat.getTextureReference(), 1);
@@ -143,47 +145,12 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::drawIntoFBO(){
-  //  backgroundShader.begin();
-    //backgroundShader.setUniformTexture("texture", ofBackground, <#int textureLocation#>)
-  //  ofBackground(red, green, blue);
-    //backgroundShader.end();
-    
-        //we clear the fbo if c is pressed.
-	//this completely clears the buffer so you won't see any trails
-	if( ofGetKeyPressed('c') ){
-		ofClear(255,255,255, 0);
-	}
-	
-	//some different alpha values for fading the fbo
-	//the lower the number, the longer the trails will take to fade away.
-	fadeAmnt = 50;
-	if(ofGetKeyPressed('1')){
-		fadeAmnt = 1;
-	}else if(ofGetKeyPressed('2')){
-		fadeAmnt = 5;
-	}else if(ofGetKeyPressed('3')){
-		fadeAmnt = 15;
-	}
-    
-    //for now, we'll clear the fbo because ofGetDepthTest doesn't seem to work with the boxes..looking into it
-    ofClear(255,255,255, 0);
 
-	//1 - Fade Fbo
-	
-	//this is where we fade the fbo
-	//by drawing a rectangle the size of the fbo with a small alpha value, we can slowly fade the current contents of the fbo.
-    /*
-    ofPushStyle();
-	ofFill();
-	ofSetColor(0,0,0, fadeAmnt);
-	ofRect(0,0,ofGetWindowWidth(),ofGetWindowHeight());
-    ofPopStyle();
-     */
-    
-
+    ofClear(0,0,0, 0);
     cam.begin();
     mVideoCubeController.draw(mVideoPlayerController);
     cam.end();
+    //changeBackgroundColor();
     
 }
 
@@ -218,7 +185,7 @@ void testApp::setupUI(){
     
     //add our widgets
     gui->addWidgetDown(new ofxUILabel("Video Cubes", OFX_UI_FONT_LARGE));
-    gui->addWidgetDown(new ofxUISlider(304,16,0.0,255.0,100.0,"BACKGROUND VALUE"));
+    gui->addWidgetDown(new ofxUISlider(304,16,0.0,100.0,100.0,"FADE AMOUNT"));
     gui->addWidgetDown(new ofxUIToggle(32, 32, false, "FULLSCREEN"));
     gui->addWidgetDown(new ofxUIToggle(32, 32, false, "TOGGLE PLAYBACK"));
     gui->addWidgetDown(new ofxUIToggle(32, 32, false, "TOGGLE FLATTEN"));
@@ -247,10 +214,11 @@ void testApp::exit(){
 
 void testApp::guiEvent(ofxUIEventArgs &e){
     
-    if(e.widget->getName() == "BACKGROUND VALUE")
+    if(e.widget->getName() == "FADE AMOUNT")
     {
         ofxUISlider *slider = (ofxUISlider *) e.widget;
-        ofBackground(slider->getScaledValue());
+        fadeAmnt = (int)slider->getScaledValue();
+        cout << "changing fade amount: " << fadeAmnt<< endl;
     }
     
     else if(e.widget->getName() == "FULLSCREEN")
@@ -320,9 +288,6 @@ void testApp::keyPressed(int key){
 }
 
 void testApp::changeBackgroundColor(){
-  //  if(green == 0 && blue == 0){
-   //     red++;
-   // }
     if (red == 255 && blue == 0) {
         green++;
     }
@@ -342,5 +307,4 @@ void testApp::changeBackgroundColor(){
         blue--;
     }
     ofBackground(red, green, blue);
-    //cout << "bg | red: " << red << " green: " << green << " blue: " << blue << endl;
 }
